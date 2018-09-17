@@ -1,22 +1,25 @@
-import * as React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import { Router } from 'react-router-dom';
+import { History } from 'history';
 
-import logo from './logo.svg';
+import { Root } from '#helpers';
+import { Routes } from '#router';
 
-class App extends React.Component {
+export interface AppProps {
+  history: History;
+}
+
+export class App extends Component<AppProps> {
   public render() {
+    const { history } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Root>
+        <Router history={history}>
+          <>
+            <Routes />
+          </>
+        </Router>
+      </Root>
     );
   }
 }
-
-export default App;
