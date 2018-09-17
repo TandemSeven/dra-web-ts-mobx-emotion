@@ -1,17 +1,17 @@
 import { colors } from '../Colors';
 import { Theme } from '../types/Theme';
 
-export const lightTheme: Theme = {
+export const primaryTheme: Theme = {
   primary: {
-    dark: colors.green['700'],
-    main: colors.green['500'],
-    light: colors.green['300'],
+    dark: colors.blue['400'],
+    main: colors.blue['400'],
+    light: colors.blue['400'],
     on: '#fff',
   },
   secondary: {
-    dark: colors.green['700'],
-    main: colors.green['500'],
-    light: colors.green['300'],
+    dark: colors.blue['400'],
+    main: colors.blue['400'],
+    light: colors.blue['400'],
     on: '#fff',
   },
   background: {

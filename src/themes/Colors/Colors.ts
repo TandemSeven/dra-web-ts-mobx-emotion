@@ -1,17 +1,16 @@
 export const colors = {
-  // these colors are sourced from the style guide
-  green: {
-    50: '#e0eeed',
-    100: '#b3d5d3',
-    200: '#80bab5',
-    300: '#67baaf',
-    400: '#268981',
-    500: '#00746b', // our hero color
-    600: '#006c63',
-    700: '#006158',
-    800: '#00574e',
-    900: '#00443c',
+  blue: {
+    400: '#00adcf',
   },
-
+  grey: {
+    300: '#d8d8d8',
+    400: '#969595',
+    500: '#979797',
+    600: '#4a4a4a',
+    700: '#f4f4f4',
+    800: '#bfbec0',
+  },
+  pink: {
+    400: '#ff545e',
+  },
 };
-// These values might be wrong

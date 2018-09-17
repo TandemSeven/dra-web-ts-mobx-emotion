@@ -74,7 +74,6 @@
     "no-boolean-literal-compare": true,
     "curly": true,
     "brace-style": [true, "1tbs"],
-    "indent": [true, "spaces", 2],
     "whitespace": [true, "check-decl", "check-operator", "check-module", "check-rest-spread"],
     "no-multiline-string": false,
     "missing-jsdoc": false,
