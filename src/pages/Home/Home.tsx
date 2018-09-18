@@ -9,8 +9,8 @@ const Summary = styled('section')`
 	min-height: 24.0625rem;
 	position: relative;
 	color: #fff;
-  margin: 50px 0;
-  padding: 20% 20px;
+  margin: 3.125rem 0;
+  padding: 20% 1.25rem;
   text-align: center;
 	&:before,
 	&:after {
@@ -23,7 +23,7 @@ const Summary = styled('section')`
 		z-index: -1;
 	}
 	&:before {
-		top: -80px;
+		top: 5rem;
 		z-index: 1;
 		transform: skewY(1.5deg);
 		transform-origin: 100% 0;

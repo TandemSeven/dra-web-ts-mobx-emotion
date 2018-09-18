@@ -18,7 +18,7 @@ const PaperClasses: { [K in PaperClassKey]?: string } = {
 };
 
 const HeroContainer = styled(Paper)`
-  max-height: 400px;
+  max-height: 25rem;
 `;
 
 export class Hero extends Component<PaperProps> {
