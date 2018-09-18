@@ -1,5 +1,20 @@
 import { colors } from '../Colors';
 import { Theme } from '../types/Theme';
+import { injectGlobal } from 'react-emotion';
+import 'typeface-poppins';
+
+/* tslint:disable:no-unused-expression */
+injectGlobal`
+  * {
+    font-family: Poppins, sans-serif;
+    font-weight: normal;
+    position: relative;
+  }
+  a {
+    text-decoration: none;
+  }
+`;
+/* tslint:enable:no-unused-expression */
 
 export const primaryTheme: Theme = {
   primary: {

@@ -8,9 +8,10 @@ import { GroupButton } from '#components';
 
 const PaperRoot = css`
 	background: ${primaryTheme.primary.main};
-	min-height: 16.125rem;
+	min-height: 22.125rem;
 	display: flex;
 	justify-content: center;
+	padding: 1.5rem 0;
 `;
 
 const PaperClasses: { [K in PaperClassKey]?: string } = {

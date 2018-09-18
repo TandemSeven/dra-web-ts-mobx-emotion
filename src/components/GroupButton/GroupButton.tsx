@@ -29,6 +29,7 @@ const ToggleButtonSelected = (selected: boolean) => css`
 const ToggleButtonLabel = (selected: boolean) => css`
 	text-transform: capitalize;
 	color: ${selected ? primaryTheme.primary.main : '#fff'};
+  font-size: .8125rem;
 `;
 
 const ToggleButtonGroupClasses: { [K in ToggleButtonGroupClassKey]?: string } = {

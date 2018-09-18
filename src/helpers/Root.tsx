@@ -4,7 +4,6 @@ import styled from 'react-emotion';
 const AppShell = styled('div')`
   background: #eee;
   height: 100vh;
-  overflow: hidden;
 `;
 
 declare let process: any; // tslint:disable-line:no-any

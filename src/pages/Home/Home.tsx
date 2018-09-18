@@ -1,17 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'react-emotion';
-import { Hero } from '#components';
+import { Hero, ProjectCard } from '#components';
 
 import { colors } from '#themes';
+import { ProjectsStoreProps } from '#stores';
+import { inject, observer } from 'mobx-react';
 
 const Summary = styled('section')`
 	background: ${colors.grey['700']};
 	min-height: 24.0625rem;
 	position: relative;
 	color: #fff;
-  margin: 3.125rem 0;
-  padding: 20% 1.25rem;
   text-align: center;
+	margin-bottom: -20%;
+	padding: 2rem;
 	&:before,
 	&:after {
 		background: inherit;
@@ -23,7 +25,7 @@ const Summary = styled('section')`
 		z-index: -1;
 	}
 	&:before {
-		top: 5rem;
+		top: 0;
 		z-index: 1;
 		transform: skewY(1.5deg);
 		transform-origin: 100% 0;
@@ -35,12 +37,43 @@ const Summary = styled('section')`
 	}
 `;
 
+const ContentWrapper = styled('div')`
+	position: relative;
+	z-index: 1;
+`;
+
+const Border = styled('div')`
+	margin: 1.6875rem 0;
+	height: .125rem;
+	border-top: 1px solid ${colors.grey['800']};
+`;
+
+export interface HomeProps { }
+
+interface InjectedProps extends HomeProps {
+	projectsStore: ProjectsStoreProps;
+}
+
+@inject('projectsStore')
+@observer
 export class Home extends Component {
+	get injected(): InjectedProps {
+		return this.props as InjectedProps;
+	}
+	componentDidMount() {
+		this.injected.projectsStore.getActiveProjects();
+	}
 	render() {
+		const { projects } = this.injected.projectsStore;
 		return (
 			<Fragment>
 				<Hero>{''}</Hero>
-				<Summary />
+				<Summary>
+					<ContentWrapper>
+						{projects.map(p => <ProjectCard key={p.id} project={p} />)}
+					</ContentWrapper>
+					<Border />
+				</Summary>
 			</Fragment>
 		);
 	}
