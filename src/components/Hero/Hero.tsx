@@ -4,10 +4,13 @@ import { PaperClassKey, PaperProps } from '@material-ui/core/Paper';
 import styled, { css } from 'react-emotion';
 
 import { primaryTheme } from '#themes';
+import { GroupButton } from '#components';
 
 const PaperRoot = css`
 	background: ${primaryTheme.primary.main};
 	min-height: 16.125rem;
+	display: flex;
+	justify-content: center;
 `;
 
 const PaperClasses: { [K in PaperClassKey]?: string } = {
@@ -22,7 +25,7 @@ export class Hero extends Component<PaperProps> {
 	render() {
 		return (
 			<HeroContainer classes={PaperClasses} elevation={0} square={true}>
-				yoyoy
+				<GroupButton />
 			</HeroContainer>
 		);
 	}

@@ -97,6 +97,7 @@ module.exports = {
     alias: {
       // CUSTOM PACKAGES
       "#components": path.resolve(__dirname, "../src/components"),
+      "#constants": path.resolve(__dirname, "../src/constants"),
       "#helpers": path.resolve(__dirname, "../src/helpers"),
       "#i18n": path.resolve(__dirname, "../src/i18n"),
       "#pages": path.resolve(__dirname, "../src/pages"),

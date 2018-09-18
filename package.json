@@ -10,6 +10,7 @@
   "dependencies": {
     "@material-ui/core": "^3.1.0",
     "@material-ui/icons": "^3.0.1",
+    "@material-ui/lab": "^3.0.0-alpha.16",
     "autoprefixer": "7.1.6",
     "babel-jest": "^22.1.0",
     "babel-loader": "^7.1.2",
@@ -51,7 +52,6 @@
     "ts-loader": "^2.3.7",
     "tsconfig-paths-webpack-plugin": "^2.0.0",
     "tslint": "^5.7.0",
-    "tslint-config-prettier": "^1.15.0",
     "tslint-react": "^3.2.0",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "url-loader": "0.6.2",
@@ -79,6 +79,8 @@
     "@types/react-router-dom": "^4.3.1",
     "babel-plugin-emotion": "^9.2.9",
     "mobx-react-devtools": "^6.0.3",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-plugin-prettier": "^2.0.0",
     "typescript": "^3.0.3"
   },
   "jest": {

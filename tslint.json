@@ -41,7 +41,7 @@
     "no-implicit-dependencies": false,
     "quotemark": [true, "single", "jsx-single", "avoid-escape", "avoid-template"],
     "no-this-assignment": true,
-    "semicolon": [true, "always"],
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
     "trailing-comma": [true, {
       "multiline": "always",
       "singleline": "never"
