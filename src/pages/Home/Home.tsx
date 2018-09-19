@@ -6,7 +6,7 @@ import { colors } from '#themes';
 import { ProjectsStoreProps } from '#stores';
 import { inject, observer } from 'mobx-react';
 
-const Summary = styled('section')`
+const Summary = styled.section`
 	background: ${colors.grey['700']};
 	min-height: 24.0625rem;
 	position: relative;
@@ -37,12 +37,14 @@ const Summary = styled('section')`
 	}
 `;
 
-const ContentWrapper = styled('div')`
+const ContentWrapper = styled.div`
 	position: relative;
 	z-index: 1;
+	max-width: 50rem;
+	margin: 0 auto;
 `;
 
-const Border = styled('div')`
+const Border = styled.div`
 	margin: 1.6875rem 0;
 	height: .125rem;
 	border-top: 1px solid ${colors.grey['800']};

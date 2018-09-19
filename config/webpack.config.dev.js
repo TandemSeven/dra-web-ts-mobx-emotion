@@ -33,6 +33,8 @@ module.exports = {
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: [
+    // babel's polyfill for es5 must come first
+    "@babel/polyfill",
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
     // Include an alternative client for WebpackDevServer. A client's job is to
@@ -100,6 +102,7 @@ module.exports = {
       "#constants": path.resolve(__dirname, "../src/constants"),
       "#helpers": path.resolve(__dirname, "../src/helpers"),
       "#i18n": path.resolve(__dirname, "../src/i18n"),
+      "#mocks": path.resolve(__dirname, "../src/mocks"),
       "#pages": path.resolve(__dirname, "../src/pages"),
       "#router": path.resolve(__dirname, "../src/router"),
       "#stores": path.resolve(__dirname, "../src/stores"),
@@ -155,13 +158,19 @@ module.exports = {
           {
             test: /\.(ts|tsx)$/,
             include: paths.appSrc,
-            use: [{
-              loader: require.resolve('ts-loader'),
-              options: {
-                // disable type checker - we will use it in fork plugin
-                transpileOnly: true,
+            use: [
+              // babel loader (runs after ts-loader)
+              {
+                loader: "babel-loader",
+                query: {
+                  babelrc: true
+                }
               },
-            }, ],
+              // ts-loader
+              {
+                loader: "ts-loader",
+              }
+            ],
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.

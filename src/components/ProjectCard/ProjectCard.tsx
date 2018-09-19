@@ -9,7 +9,7 @@ import { Hour } from '#components';
 import { primaryTheme, colors } from '#themes';
 import { Project } from '#types';
 
-const Name = styled('h2')`
+const Name = styled.h2`
   color: ${primaryTheme.primary.main};
   font-size: 1rem;
   margin: 0;
@@ -20,6 +20,10 @@ const Details = styled(Grid)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  > * {
+    width: 33%;
+    text-align: left;
+  }
 `;
 
 const Discipline = styled(Grid)`
@@ -70,7 +74,7 @@ export class ProjectCard extends Component<ProjectCardProps> {
               <Grid item={true} sm={1}>
                 <Hour hours={hours} />
               </Grid>
-              <Grid item={true} sm={10}>
+              <Grid item={true} sm={11}>
                 <Details>
                   <Name>{name}</Name>
                   <Discipline>{discipline}</Discipline>

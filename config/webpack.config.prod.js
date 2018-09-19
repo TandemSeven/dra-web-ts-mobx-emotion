@@ -46,8 +46,7 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 const extractTextPluginOptions = shouldUseRelativeAssetPaths ? // Making sure that the publicPath goes back to to build folder.
   {
     publicPath: Array(cssFilename.split('/').length).join('../')
-  } :
-  {};
+  } : {};
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -59,7 +58,8 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  // babel's polyfill for es5 must come first
+  entry: ["@babel/polyfill", require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -109,6 +109,7 @@ module.exports = {
       "#constants": path.resolve(__dirname, "../src/constants"),
       "#helpers": path.resolve(__dirname, "../src/helpers"),
       "#i18n": path.resolve(__dirname, "../src/i18n"),
+      "#mocks": path.resolve(__dirname, "../src/mocks"),
       "#pages": path.resolve(__dirname, "../src/pages"),
       "#router": path.resolve(__dirname, "../src/router"),
       "#stores": path.resolve(__dirname, "../src/stores"),
@@ -167,14 +168,19 @@ module.exports = {
           {
             test: /\.(ts|tsx)$/,
             include: paths.appSrc,
-            use: [{
-              loader: require.resolve('ts-loader'),
-              options: {
-                // disable type checker - we will use it in fork plugin
-                transpileOnly: true,
-                configFile: paths.appTsProdConfig
+            use: [
+              // babel loader (runs after ts-loader)
+              {
+                loader: "babel-loader",
+                query: {
+                  babelrc: true
+                }
               },
-            }, ],
+              // ts-loader
+              {
+                loader: "ts-loader",
+              }
+            ],
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.

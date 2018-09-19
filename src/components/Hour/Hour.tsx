@@ -2,7 +2,7 @@ import React, { SFC } from 'react';
 import styled from 'react-emotion';
 import { colors } from '#themes';
 
-const HourWrapper = styled('span')`
+const HourWrapper = styled.span`
   font-size: 3rem;
   font-weight: bold;
   color: ${colors.grey['600']};

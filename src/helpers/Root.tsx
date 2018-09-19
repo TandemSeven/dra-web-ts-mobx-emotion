@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 
-const AppShell = styled('div')`
+const AppShell = styled.main`
   background: #eee;
   height: 100vh;
 `;

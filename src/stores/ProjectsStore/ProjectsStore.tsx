@@ -1,22 +1,8 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import { Project } from '#types';
+import { injectables } from '#router';
 
-const json = [
-  {
-    id: 'skdfjh342k3jh',
-    name: 'Morgan Stanley',
-    hours: 6,
-    location: 'New York',
-    discipline: 'UX Design',
-  },
-  {
-    id: 'asdsf9ds9876sdf',
-    name: 'JP Morgan',
-    hours: 2,
-    location: 'New York',
-    discipline: 'Sales Support',
-  },
-];
+import { getFakeProjects } from '#mocks';
 
 export interface ProjectsStoreProps {
   projects: Project[];
@@ -24,11 +10,22 @@ export interface ProjectsStoreProps {
 }
 
 export class ProjectsStore {
-  @observable projects: Project[] = [];
+  @observable projects: any = [];
 
   @action
-  getActiveProjects() {
-    this.projects = json;
-    return this.projects;
+  getActiveProjects = async () => {
+    try {
+      injectables.appStore.setLoading({ message: 'Loading Projects...' });
+
+      // this is a fake response
+      const response = await getFakeProjects();
+
+      runInAction('getActiveProjectsSuccess', () => {
+        this.projects = response || [];
+        injectables.appStore.setDone();
+      });
+    } catch (err) {
+      injectables.appStore.setError({ message: `Err: ${err}` });
+    }
   }
 }
