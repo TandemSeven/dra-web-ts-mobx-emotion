@@ -7,7 +7,6 @@ import styled, { css } from 'react-emotion';
 
 import { Hour } from '#components';
 import { primaryTheme, colors } from '#themes';
-import { Weather } from '#types';
 
 const Name = styled.h2`
   color: ${primaryTheme.primary.main};
@@ -59,7 +58,7 @@ const IconButtonClasses: { [K in IconButtonClassKey]?: string } = {
 };
 
 export interface ProjectCardProps {
-  project: Weather;
+  project: any; // REMOVE ME
 }
 
 export class ProjectCard extends Component<ProjectCardProps> {

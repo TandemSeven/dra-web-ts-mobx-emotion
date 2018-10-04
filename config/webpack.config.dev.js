@@ -102,7 +102,6 @@ module.exports = {
       '#constants': path.resolve(__dirname, '../src/constants'),
       '#helpers': path.resolve(__dirname, '../src/helpers'),
       '#i18n': path.resolve(__dirname, '../src/i18n'),
-      '#mocks': path.resolve(__dirname, '../src/mocks'),
       '#pages': path.resolve(__dirname, '../src/pages'),
       '#router': path.resolve(__dirname, '../src/router'),
       '#stores': path.resolve(__dirname, '../src/stores'),

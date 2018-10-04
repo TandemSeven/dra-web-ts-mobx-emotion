@@ -7,15 +7,20 @@ export type State =
   | typeof PENDING;
 
 export interface LocationDetails {
-  city?: String;
-  lat?: Number;
-  lon?: Number;
-  region?: String;
-  regionName?: String;
+  city?: string;
+  lat?: number;
+  lon?: number;
+  region?: string;
+  regionName?: string;
 }
 
 export type NotificationMessage = string | undefined;
 
 export interface Notification {
   message?: NotificationMessage;
+}
+
+export interface CurrentEndPoints {
+  forecast?: string;
+  forecastHourly?: string;
 }

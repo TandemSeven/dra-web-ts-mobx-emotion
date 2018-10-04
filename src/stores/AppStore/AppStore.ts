@@ -1,4 +1,5 @@
 import { action, observable, runInAction } from 'mobx';
+import { injectables } from '#router';
 import { State } from '#types';
 import { DONE, ERROR, LOADING, PENDING } from '#constants';
 import { Notification, NotificationMessage, LocationDetails } from '#types';
@@ -6,6 +7,7 @@ import { getLocation } from '#helpers/GetLocation';
 
 export interface AppStoreProps {
   fetchCurrentLocation(): void;
+  init(): void;
   isNotificationOpen: boolean;
   locationDetails: LocationDetails;
   message?: NotificationMessage;
@@ -73,13 +75,24 @@ export class AppStore {
     this.closeNotification();
   }
 
-  // global objects
-  // ==============
   @action
   fetchCurrentLocation = async () => {
     const locationDetails = await getLocation();
     runInAction(() => {
       this.locationDetails = locationDetails;
+    });
+  };
+  /**
+   * @function init
+   * - fetch the users current location and coordinates and
+   * get the hourly forecast. Nested async calls are necessary
+   */
+  @action
+  init = async () => {
+    await this.fetchCurrentLocation();
+    const getHourlyForecast = await injectables.weatherStore.getHourlyForecast;
+    runInAction(() => {
+      getHourlyForecast();
     });
   };
 }
