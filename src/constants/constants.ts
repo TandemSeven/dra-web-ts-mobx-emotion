@@ -6,3 +6,6 @@ export const PENDING = 'pending';
 
 export const DAILY = 'daily';
 export const WEEKLY = 'weekly';
+
+// weather API
+export const API_POINTS = 'https://api.weather.gov/points';

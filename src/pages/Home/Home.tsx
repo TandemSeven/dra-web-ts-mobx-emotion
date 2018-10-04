@@ -28,19 +28,18 @@ export class Home extends Component {
     return this.props as InjectedProps;
   }
   componentDidMount() {
-    this.injected.appStore.fetchCurrentLocation();
-    this.injected.weatherStore.getCurrentWeather();
+    this.injected.appStore.init();
   }
   render() {
     const { locationDetails } = this.injected.appStore;
-    const { weather } = this.injected.weatherStore;
+    const { forecastHourly } = this.injected.weatherStore;
     return (
       <Fragment>
         <Hero {...locationDetails} />
         <Summary>
           <ContentWrapper>
-            {weather.map(w => (
-              <ProjectCard key={w.id} project={w} />
+            {forecastHourly.map(p => (
+              <p key={p.number}>{p.shortForecast}</p>
             ))}
           </ContentWrapper>
         </Summary>
