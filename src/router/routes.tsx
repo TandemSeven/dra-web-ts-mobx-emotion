@@ -5,6 +5,6 @@ import { Home } from '#pages';
 
 export const Routes: SFC = () => (
   <Switch>
-    <Route component={Home} exact={true} path='/' />
+    <Route component={Home} exact={true} path="/" />
   </Switch>
 );

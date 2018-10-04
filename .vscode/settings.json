@@ -1,3 +1,7 @@
 {
-  "editor.formatOnSave": true
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "tslint.alwaysShowRuleFailuresAsWarnings": true
 }
