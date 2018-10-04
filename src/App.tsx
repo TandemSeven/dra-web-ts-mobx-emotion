@@ -35,7 +35,7 @@ export class App extends Component<AppProps> {
         </Router>
         <Snackbar
           open={isNotificationOpen}
-          message={<span id='message-id'>{message}</span>}
+          message={<span id="message-id">{message}</span>}
         />
       </Root>
     );

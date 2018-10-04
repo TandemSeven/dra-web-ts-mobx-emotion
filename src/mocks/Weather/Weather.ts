@@ -1,6 +1,6 @@
-import { Project } from '#types';
+import { Weather } from '#types';
 
-export const projectsFakeData: Project[] = [
+export const weatherFakeData: Weather[] = [
   {
     id: 'skdfjh342k3jh',
     name: 'Morgan Stanley',
@@ -17,8 +17,8 @@ export const projectsFakeData: Project[] = [
   },
 ];
 
-export const getFakeProjects = async () => {
-  const promise = new Promise(resolve => setTimeout(() => resolve(projectsFakeData), 3000));
+export const getFakeWeather = async () => {
+  const promise = new Promise(resolve => setTimeout(() => resolve(weatherFakeData), 3000));
   return await promise;
 };
 

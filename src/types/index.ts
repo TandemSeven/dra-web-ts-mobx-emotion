@@ -1,5 +1,4 @@
 export * from './App';
-export * from './Calendar';
 export * from './omit';
-export * from './Project';
+export * from './Weather';
 export * from './properties-of-type';

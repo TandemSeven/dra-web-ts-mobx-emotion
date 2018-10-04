@@ -1,10 +1,13 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import { State } from '#types';
 import { DONE, ERROR, LOADING, PENDING } from '#constants';
-import { Notification, NotificationMessage } from '#types';
+import { Notification, NotificationMessage, LocationDetails } from '#types';
+import { getLocation } from '#helpers/GetLocation';
 
 export interface AppStoreProps {
+  fetchCurrentLocation(): void;
   isNotificationOpen: boolean;
+  locationDetails: LocationDetails;
   message?: NotificationMessage;
   setDone(notification?: Notification): void;
   setError(notification?: Notification): void;
@@ -13,19 +16,32 @@ export interface AppStoreProps {
 }
 
 export class AppStore {
-  @observable state: State = PENDING;
-  @observable isNotificationOpen: boolean = false;
-  @observable message?: NotificationMessage = undefined;
+  @observable
+  state: State = PENDING;
 
-  @action openNotification() {
+  @observable
+  isNotificationOpen: boolean = false;
+
+  @observable
+  message?: NotificationMessage = undefined;
+
+  @observable
+  locationDetails: LocationDetails = {};
+
+  // notifications and state
+  // =======================
+  @action
+  openNotification() {
     this.isNotificationOpen = true;
   }
 
-  @action closeNotification() {
+  @action
+  closeNotification() {
     this.isNotificationOpen = false;
   }
 
-  @action setDone(notification?: Notification) {
+  @action
+  setDone(notification?: Notification) {
     const message = notification && notification.message;
 
     this.state = DONE;
@@ -33,7 +49,8 @@ export class AppStore {
     this.closeNotification();
   }
 
-  @action setError(notification?: Notification) {
+  @action
+  setError(notification?: Notification) {
     const message = notification && notification.message;
 
     this.state = ERROR;
@@ -41,7 +58,8 @@ export class AppStore {
     this.message = message;
   }
 
-  @action setLoading(notification?: Notification) {
+  @action
+  setLoading(notification?: Notification) {
     const message = notification && notification.message;
 
     this.state = LOADING;
@@ -49,8 +67,19 @@ export class AppStore {
     this.message = message;
   }
 
-  @action setPending() {
+  @action
+  setPending() {
     this.state = PENDING;
     this.closeNotification();
   }
+
+  // global objects
+  // ==============
+  @action
+  fetchCurrentLocation = async () => {
+    const locationDetails = await getLocation();
+    runInAction(() => {
+      this.locationDetails = locationDetails;
+    });
+  };
 }

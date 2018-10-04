@@ -1,4 +1,4 @@
-export interface Project {
+export interface Weather {
   id: string;
   hours: number;
   name: string;

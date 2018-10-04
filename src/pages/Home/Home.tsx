@@ -2,45 +2,49 @@ import React, { Component, Fragment } from 'react';
 import styled from 'react-emotion';
 import { Hero, ProjectCard } from '#components';
 
-import { colors } from '#themes';
-import { ProjectsStoreProps } from '#stores';
+import { AppStoreProps, WeatherStoreProps } from '#stores';
 import { inject, observer } from 'mobx-react';
 
 const Summary = styled.section``;
 
 const ContentWrapper = styled.div`
-	position: relative;
-	z-index: 1;
-	max-width: 50rem;
-	margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  max-width: 50rem;
+  margin: 0 auto;
 `;
 
-export interface HomeProps { }
+export interface HomeProps {}
 
 interface InjectedProps extends HomeProps {
-	projectsStore: ProjectsStoreProps;
+  appStore: AppStoreProps;
+  weatherStore: WeatherStoreProps;
 }
 
-@inject('projectsStore')
+@inject('appStore', 'weatherStore')
 @observer
 export class Home extends Component {
-	get injected(): InjectedProps {
-		return this.props as InjectedProps;
-	}
-	componentDidMount() {
-		this.injected.projectsStore.getActiveProjects();
-	}
-	render() {
-		const { projects } = this.injected.projectsStore;
-		return (
-			<Fragment>
-				<Hero />
-				<Summary>
-					<ContentWrapper>
-						{projects.map(p => <ProjectCard key={p.id} project={p} />)}
-					</ContentWrapper>
-				</Summary>
-			</Fragment>
-		);
-	}
+  get injected(): InjectedProps {
+    return this.props as InjectedProps;
+  }
+  componentDidMount() {
+    this.injected.appStore.fetchCurrentLocation();
+    this.injected.weatherStore.getCurrentWeather();
+  }
+  render() {
+    const { locationDetails } = this.injected.appStore;
+    const { weather } = this.injected.weatherStore;
+    return (
+      <Fragment>
+        <Hero {...locationDetails} />
+        <Summary>
+          <ContentWrapper>
+            {weather.map(w => (
+              <ProjectCard key={w.id} project={w} />
+            ))}
+          </ContentWrapper>
+        </Summary>
+      </Fragment>
+    );
+  }
 }

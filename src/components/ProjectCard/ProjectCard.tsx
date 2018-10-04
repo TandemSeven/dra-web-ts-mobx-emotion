@@ -7,7 +7,7 @@ import styled, { css } from 'react-emotion';
 
 import { Hour } from '#components';
 import { primaryTheme, colors } from '#themes';
-import { Project } from '#types';
+import { Weather } from '#types';
 
 const Name = styled.h2`
   color: ${primaryTheme.primary.main};
@@ -29,15 +29,15 @@ const Details = styled(Grid)`
 const Discipline = styled(Grid)`
   color: ${colors.grey['800']};
   font-weight: 300;
-  font-size: .875rem;
+  font-size: 0.875rem;
 `;
 
 const Location = styled(Discipline)`
-  font-size: .625rem;
+  font-size: 0.625rem;
 `;
 
 const PaperRoot = css`
-	padding: .5rem;
+  padding: 0.5rem;
 `;
 
 const RemoveIcon = styled(AddCircleOutline)`
@@ -46,8 +46,8 @@ const RemoveIcon = styled(AddCircleOutline)`
 
 const IconButtonRoot = css`
   position: absolute;
-  top: .25rem;
-  right: .25rem;
+  top: 0.25rem;
+  right: 0.25rem;
 `;
 
 const PaperClasses: { [K in PaperClassKey]?: string } = {
@@ -59,7 +59,7 @@ const IconButtonClasses: { [K in IconButtonClassKey]?: string } = {
 };
 
 export interface ProjectCardProps {
-  project: Project;
+  project: Weather;
 }
 
 export class ProjectCard extends Component<ProjectCardProps> {
@@ -70,7 +70,7 @@ export class ProjectCard extends Component<ProjectCardProps> {
       <Grid container={true} spacing={24}>
         <Grid item={true} xs={12}>
           <Paper classes={PaperClasses}>
-            <Grid container={true} alignItems='center'>
+            <Grid container={true} alignItems="center">
               <Grid item={true} sm={1}>
                 <Hour hours={hours} />
               </Grid>
@@ -84,10 +84,14 @@ export class ProjectCard extends Component<ProjectCardProps> {
             </Grid>
           </Paper>
         </Grid>
-        <IconButton aria-label='Remove' classes={IconButtonClasses} color='primary'>
+        <IconButton
+          aria-label="Remove"
+          classes={IconButtonClasses}
+          color="primary"
+        >
           <RemoveIcon />
         </IconButton>
-      </Grid >
+      </Grid>
     );
   }
 }
