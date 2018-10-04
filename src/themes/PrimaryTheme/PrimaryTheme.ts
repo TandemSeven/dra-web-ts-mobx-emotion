@@ -10,8 +10,11 @@ injectGlobal`
     font-weight: normal;
     position: relative;
   }
-  a {
-    text-decoration: none;
+  body {
+    margin: 0;
+    a {
+      text-decoration: none;
+    }
   }
 `;
 /* tslint:enable:no-unused-expression */
@@ -21,24 +24,24 @@ export const primaryTheme: Theme = {
     dark: colors.blue['400'],
     main: colors.blue['400'],
     light: colors.blue['400'],
-    on: '#fff',
+    on: colors.white['400'],
   },
   secondary: {
     dark: colors.blue['400'],
     main: colors.blue['400'],
     light: colors.blue['400'],
-    on: '#fff',
+    on: colors.white['400'],
   },
   background: {
-    main: '#eee',
-    on: '#000000',
+    main: colors.grey['200'],
+    on: colors.black['400'],
   },
   surface: {
-    main: '#fff',
-    on: '#000000',
+    main: colors.white['400'],
+    on: colors.black['400'],
   },
   error: {
-    main: '#b00020',
-    on: '#fff',
+    main: colors.red['400'],
+    on: colors.white['400'],
   },
 };
