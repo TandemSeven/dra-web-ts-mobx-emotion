@@ -34,7 +34,7 @@ module.exports = {
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: [
     // babel's polyfill for es5 must come first
-    "@babel/polyfill",
+    '@babel/polyfill',
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
     // Include an alternative client for WebpackDevServer. A client's job is to
@@ -76,7 +76,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/253
     modules: ['node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
     ),
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
@@ -98,20 +98,21 @@ module.exports = {
     ],
     alias: {
       // CUSTOM PACKAGES
-      "#components": path.resolve(__dirname, "../src/components"),
-      "#constants": path.resolve(__dirname, "../src/constants"),
-      "#helpers": path.resolve(__dirname, "../src/helpers"),
-      "#i18n": path.resolve(__dirname, "../src/i18n"),
-      "#mocks": path.resolve(__dirname, "../src/mocks"),
-      "#pages": path.resolve(__dirname, "../src/pages"),
-      "#router": path.resolve(__dirname, "../src/router"),
-      "#stores": path.resolve(__dirname, "../src/stores"),
-      "#themes": path.resolve(__dirname, "../src/themes"),
-      "#types": path.resolve(__dirname, "../src/types"),
+      '#components': path.resolve(__dirname, '../src/components'),
+      '#constants': path.resolve(__dirname, '../src/constants'),
+      '#helpers': path.resolve(__dirname, '../src/helpers'),
+      '#i18n': path.resolve(__dirname, '../src/i18n'),
+      '#mocks': path.resolve(__dirname, '../src/mocks'),
+      '#pages': path.resolve(__dirname, '../src/pages'),
+      '#router': path.resolve(__dirname, '../src/router'),
+      '#stores': path.resolve(__dirname, '../src/stores'),
+      '#styles': path.resolve(__dirname, '../src/styles'),
+      '#themes': path.resolve(__dirname, '../src/themes'),
+      '#types': path.resolve(__dirname, '../src/types'),
     },
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: paths.appTsConfig
+        configFile: paths.appTsConfig,
       }),
     ],
   },
@@ -149,7 +150,6 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-
               compact: true,
             },
           },
@@ -161,15 +161,15 @@ module.exports = {
             use: [
               // babel loader (runs after ts-loader)
               {
-                loader: "babel-loader",
+                loader: 'babel-loader',
                 query: {
-                  babelrc: true
-                }
+                  babelrc: true,
+                },
               },
               // ts-loader
               {
-                loader: "ts-loader",
-              }
+                loader: 'ts-loader',
+              },
             ],
           },
           // "postcss" loader applies autoprefixer to our CSS.

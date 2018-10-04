@@ -19,76 +19,32 @@
     "sourceMap": true,
     "allowJs": false,
     "baseUrl": "",
-    "lib": [
-      "es2017",
-      "es2018.promise",
-      "dom"
-    ],
+    "lib": ["es2017", "es2018.promise", "dom"],
     "paths": {
-      "*": [
-        "types/*"
-      ],
-      "#components": [
-        "src/components"
-      ],
-      "#components/*": [
-        "src/components/*"
-      ],
-      "#constants": [
-        "src/constants"
-      ],
-      "#constants/*": [
-        "src/constants/*"
-      ],
-      "#helpers": [
-        "src/helpers"
-      ],
-      "#helpers/*": [
-        "src/helpers/*"
-      ],
-      "#i18n": [
-        "src/i18n"
-      ],
-      "#mocks": [
-        "src/mocks"
-      ],
-      "#mocks/*": [
-        "src/mocks/*"
-      ],
-      "#pages": [
-        "src/pages"
-      ],
-      "#pages/*": [
-        "src/pages/*"
-      ],
-      "#router": [
-        "src/router"
-      ],
-      "#router/*": [
-        "src/router/*"
-      ],
-      "#stores": [
-        "src/stores"
-      ],
-      "#stores/*": [
-        "src/stores/*"
-      ],
-      "#themes": [
-        "src/themes"
-      ],
-      "#themes/*": [
-        "src/themes/*"
-      ],
-      "#types": [
-        "src/types"
-      ],
-      "#types/*": [
-        "src/types/*"
-      ],
+      "*": ["types/*"],
+      "#components": ["src/components"],
+      "#components/*": ["src/components/*"],
+      "#constants": ["src/constants"],
+      "#constants/*": ["src/constants/*"],
+      "#helpers": ["src/helpers"],
+      "#helpers/*": ["src/helpers/*"],
+      "#i18n": ["src/i18n"],
+      "#mocks": ["src/mocks"],
+      "#mocks/*": ["src/mocks/*"],
+      "#pages": ["src/pages"],
+      "#pages/*": ["src/pages/*"],
+      "#router": ["src/router"],
+      "#router/*": ["src/router/*"],
+      "#stores": ["src/stores"],
+      "#stores/*": ["src/stores/*"],
+      "#styles": ["src/styles"],
+      "#styles/*": ["src/styles/*"],
+      "#themes": ["src/themes"],
+      "#themes/*": ["src/themes/*"],
+      "#types": ["src/types"],
+      "#types/*": ["src/types/*"]
     },
-    "typeRoots": [
-      "./types"
-    ]
+    "typeRoots": ["./types"]
   },
   "exclude": [
     "node_modules",

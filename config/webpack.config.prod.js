@@ -43,10 +43,11 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
 // However, our output is structured with css, js and media folders.
 // To have this structure working with relative paths, we have to use custom options.
-const extractTextPluginOptions = shouldUseRelativeAssetPaths ? // Making sure that the publicPath goes back to to build folder.
-  {
-    publicPath: Array(cssFilename.split('/').length).join('../')
-  } : {};
+const extractTextPluginOptions = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+  ? {
+      publicPath: Array(cssFilename.split('/').length).join('../'),
+    }
+  : {};
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -59,7 +60,7 @@ module.exports = {
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
   // babel's polyfill for es5 must come first
-  entry: ["@babel/polyfill", require.resolve('./polyfills'), paths.appIndexJs],
+  entry: ['@babel/polyfill', require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -73,8 +74,8 @@ module.exports = {
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path
-      .relative(paths.appSrc, info.absoluteResourcePath)
-      .replace(/\\/g, '/'),
+        .relative(paths.appSrc, info.absoluteResourcePath)
+        .replace(/\\/g, '/'),
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -83,7 +84,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/253
     modules: ['node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
     ),
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
@@ -105,16 +106,17 @@ module.exports = {
     ],
     alias: {
       // CUSTOM PACKAGES
-      "#components": path.resolve(__dirname, "../src/components"),
-      "#constants": path.resolve(__dirname, "../src/constants"),
-      "#helpers": path.resolve(__dirname, "../src/helpers"),
-      "#i18n": path.resolve(__dirname, "../src/i18n"),
-      "#mocks": path.resolve(__dirname, "../src/mocks"),
-      "#pages": path.resolve(__dirname, "../src/pages"),
-      "#router": path.resolve(__dirname, "../src/router"),
-      "#stores": path.resolve(__dirname, "../src/stores"),
-      "#themes": path.resolve(__dirname, "../src/themes"),
-      "#types": path.resolve(__dirname, "../src/types"),
+      '#components': path.resolve(__dirname, '../src/components'),
+      '#constants': path.resolve(__dirname, '../src/constants'),
+      '#helpers': path.resolve(__dirname, '../src/helpers'),
+      '#i18n': path.resolve(__dirname, '../src/i18n'),
+      '#mocks': path.resolve(__dirname, '../src/mocks'),
+      '#pages': path.resolve(__dirname, '../src/pages'),
+      '#router': path.resolve(__dirname, '../src/router'),
+      '#stores': path.resolve(__dirname, '../src/stores'),
+      '#styles': path.resolve(__dirname, '../src/styles'),
+      '#themes': path.resolve(__dirname, '../src/themes'),
+      '#types': path.resolve(__dirname, '../src/types'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -124,7 +126,7 @@ module.exports = {
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       new TsconfigPathsPlugin({
-        configFile: paths.appTsConfig
+        configFile: paths.appTsConfig,
       }),
     ],
   },
@@ -160,7 +162,6 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-
               compact: true,
             },
           },
@@ -171,15 +172,15 @@ module.exports = {
             use: [
               // babel loader (runs after ts-loader)
               {
-                loader: "babel-loader",
+                loader: 'babel-loader',
                 query: {
-                  babelrc: true
-                }
+                  babelrc: true,
+                },
               },
               // ts-loader
               {
-                loader: "ts-loader",
-              }
+                loader: 'ts-loader',
+              },
             ],
           },
           // The notation here is somewhat confusing.
@@ -197,14 +198,16 @@ module.exports = {
           {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract(
-              Object.assign({
+              Object.assign(
+                {
                   fallback: {
                     loader: require.resolve('style-loader'),
                     options: {
                       hmr: false,
                     },
                   },
-                  use: [{
+                  use: [
+                    {
                       loader: require.resolve('css-loader'),
                       options: {
                         importLoaders: 1,
@@ -234,8 +237,8 @@ module.exports = {
                     },
                   ],
                 },
-                extractTextPluginOptions
-              )
+                extractTextPluginOptions,
+              ),
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },

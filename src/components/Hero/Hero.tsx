@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import { PaperClassKey } from '@material-ui/core/Paper';
+import { TypographyClassKey } from '@material-ui/core/Typography';
 import styled, { css } from 'react-emotion';
+import moment from 'moment';
 
 import { primaryTheme } from '#themes';
 import { LocationDetails } from '#types';
-import { TypographyClassKey } from '@material-ui/core/Typography';
+import { FlexContainer } from '#styles';
 
 const PaperRoot = css`
   min-height: 32.125rem;
@@ -47,9 +49,14 @@ const SVGCurve = styled.svg`
 `;
 
 const City = styled(Typography)``;
+const Time = styled(Typography)``;
 const Region = styled(City)`
   font-weight: bold;
   margin-left: 0.3125rem;
+`;
+
+const RightContent = styled(FlexContainer)`
+  justify-content: flex-end;
 `;
 export interface HeroProps extends LocationDetails {}
 export class Hero extends Component<HeroProps> {
@@ -58,8 +65,15 @@ export class Hero extends Component<HeroProps> {
     return (
       <HeroContainer classes={PaperClasses} elevation={0} square={true}>
         <ContentWrapper>
-          {city && <City classes={TypographyClasses}>{`${city},`}</City>}
-          <Region classes={TypographyClasses}>{region}</Region>
+          <FlexContainer>
+            {city && <City classes={TypographyClasses}>{`${city},`}</City>}
+            <Region classes={TypographyClasses}>{region}</Region>
+          </FlexContainer>
+          <RightContent>
+            <Time classes={TypographyClasses}>
+              {moment().format('dddd, h:mm A')}
+            </Time>
+          </RightContent>
         </ContentWrapper>
         <SVGCurve viewBox="0 0 100 17">
           <path

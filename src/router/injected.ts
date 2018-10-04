@@ -1,16 +1,21 @@
 import { RouterStore } from 'mobx-react-router';
-import { AppStore, AppStoreProps, WeatherStore, WeatherStoreProps } from '#stores';
+import {
+  AppStore,
+  AppStoreProps,
+  WeatherStore,
+  WeatherStoreProps,
+} from '#stores';
 
 export const injectables: Injectables = {
-	appStore: new AppStore(),
-	routerStore: new RouterStore(),
-	weatherStore: new WeatherStore(),
+  appStore: new AppStore(),
+  routerStore: new RouterStore(),
+  weatherStore: new WeatherStore(),
 };
 
 export const injectableNames: (keyof Injectables)[] = ['routerStore'];
 
 export interface Injectables {
-	appStore: AppStoreProps;
-	weatherStore: WeatherStoreProps;
-	routerStore: RouterStore;
+  appStore: AppStoreProps;
+  weatherStore: WeatherStoreProps;
+  routerStore: RouterStore;
 }
