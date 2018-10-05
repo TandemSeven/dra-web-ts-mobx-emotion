@@ -17,6 +17,8 @@ export interface ForecastHourly {
 }
 
 export interface IShortForecast {
+  'Mostly Sunny': 'Mostly Sunny';
+  'Partly Cloudy': 'Partly Cloudy';
   Sunny: 'Sunny';
 }
 

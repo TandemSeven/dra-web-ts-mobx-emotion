@@ -104,13 +104,15 @@ export class Hero extends Component<HeroProps> {
               </ShortForecast>
             </FlexContainer>
             <FlexContainer>
-              <Temperature classes={TypographyClasses}>
-                <sup className="weather-icon">
-                  {forecastIconMap(shortForecast)}
-                </sup>
-                {temperature}
-                <sup className="degrees">&#8457;</sup>
-              </Temperature>
+              {temperature && (
+                <Temperature classes={TypographyClasses}>
+                  <sup className="weather-icon">
+                    {forecastIconMap(shortForecast)}
+                  </sup>
+                  {temperature}
+                  <sup className="degrees">&#8457;</sup>
+                </Temperature>
+              )}
             </FlexContainer>
           </LeftContent>
           <RightContent>

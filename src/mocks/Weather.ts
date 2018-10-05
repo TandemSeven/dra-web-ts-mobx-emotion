@@ -24,7 +24,6 @@ export const fakeWeatherData: CurrentLocationAndWeather[] = [
 ];
 
 export const getFakeWeatherAndLocation = async () => {
-  console.log('hi?');
   const promise = new Promise(resolve =>
     setTimeout(() => resolve(fakeWeatherData), 3000),
   );
