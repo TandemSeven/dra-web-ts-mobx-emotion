@@ -1,12 +1,12 @@
 import { colors } from '../Colors';
 import { Theme } from '../types/Theme';
 import { injectGlobal } from 'react-emotion';
-import 'typeface-poppins';
+import 'typeface-montserrat';
 
 /* tslint:disable:no-unused-expression */
 injectGlobal`
   * {
-    font-family: Poppins, sans-serif;
+    font-family: Montserrat, sans-serif !important;
     font-weight: normal;
     position: relative;
   }

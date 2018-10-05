@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 import { ThemeProvider } from 'emotion-theming';
-import { createGenerateClassName, jssPreset, MuiThemeProvider } from '@material-ui/core/styles';
+import {
+  createGenerateClassName,
+  jssPreset,
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
 import { history, injectables } from '#router';
 
 import { App } from './App';
@@ -43,16 +47,16 @@ const jss = create(jssPreset());
 //   match data, which will be null if the route is not active
 
 ReactDOM.render(
-	<JssProvider jss={jss} generateClassName={generateClassName}>
-		<ThemeProvider theme={primaryTheme}>
-			<MuiThemeProvider theme={appTheme}>
-				<Provider {...injectables}>
-					<MobxIntlProvider defaultLocale={defaultLocale}>
-						<App history={history} />
-					</MobxIntlProvider>
-				</Provider>
-			</MuiThemeProvider>
-		</ThemeProvider>
-	</JssProvider>,
-	document.getElementById('root'),
+  <JssProvider jss={jss} generateClassName={generateClassName}>
+    <ThemeProvider theme={primaryTheme}>
+      <MuiThemeProvider theme={appTheme}>
+        <Provider {...injectables}>
+          <MobxIntlProvider defaultLocale={defaultLocale}>
+            <App history={history} />
+          </MobxIntlProvider>
+        </Provider>
+      </MuiThemeProvider>
+    </ThemeProvider>
+  </JssProvider>,
+  document.getElementById('root'),
 );

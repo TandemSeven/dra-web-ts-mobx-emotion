@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface ForecastHourly {
   number: number;
   name: string;
@@ -10,6 +12,14 @@ export interface ForecastHourly {
   windSpeed: string;
   windDirection: string;
   icon: string;
-  shortForecast: string;
+  shortForecast: ShortForecast;
   detailedForecast: string;
 }
+
+export interface IShortForecast {
+  Sunny: 'Sunny';
+}
+
+export type ShortForecast = keyof IShortForecast;
+
+export type ShortForecastHash = { [K in ShortForecast]: ReactNode };

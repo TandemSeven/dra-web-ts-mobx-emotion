@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'react-emotion';
-import { Hero, ProjectCard } from '#components';
+import { Hero } from '#components';
 
 import { AppStoreProps, WeatherStoreProps } from '#stores';
 import { inject, observer } from 'mobx-react';
+import { fakeWeatherData } from '#mocks';
 
 const Summary = styled.section``;
 
@@ -28,14 +29,18 @@ export class Home extends Component {
     return this.props as InjectedProps;
   }
   componentDidMount() {
-    this.injected.appStore.init();
+    // this.injected.appStore.init();
   }
   render() {
     const { locationDetails } = this.injected.appStore;
     const { forecastHourly } = this.injected.weatherStore;
     return (
       <Fragment>
-        <Hero {...locationDetails} />
+        <Hero
+          {...locationDetails}
+          {...forecastHourly[0]}
+          {...fakeWeatherData[0]}
+        />
         <Summary>
           <ContentWrapper>
             {forecastHourly.map(p => (
