@@ -3,5 +3,6 @@
   "[typescript]": {
     "editor.formatOnSave": true
   },
-  "tslint.alwaysShowRuleFailuresAsWarnings": true
+  "tslint.alwaysShowRuleFailuresAsWarnings": true,
+  "editor.codeLens": false
 }
