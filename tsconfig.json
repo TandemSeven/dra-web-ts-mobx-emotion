@@ -29,6 +29,8 @@
       "#helpers": ["src/helpers"],
       "#helpers/*": ["src/helpers/*"],
       "#i18n": ["src/i18n"],
+      "#mocks": ["src/mocks"],
+      "#mocks/*": ["src/mocks/*"],
       "#pages": ["src/pages"],
       "#pages/*": ["src/pages/*"],
       "#router": ["src/router"],

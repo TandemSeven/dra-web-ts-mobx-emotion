@@ -1,4 +1,6 @@
 export * from './App';
+export * from './Common';
+export * from './Location';
 export * from './omit';
-export * from './Weather';
 export * from './properties-of-type';
+export * from './Weather';
