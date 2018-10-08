@@ -699,6 +699,10 @@
     csstype "^2.0.0"
     indefinite-observable "^1.0.1"
 
+"@types/lodash@^4.14.116":
+  version "4.14.116"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.116.tgz#5ccf215653e3e8c786a58390751033a9adca0eb9"
+
 "@types/node@*", "@types/node@^10.10.0":
   version "10.10.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.10.0.tgz#2b08a1a7d1fa317173a776c2130bf240545cc33e"
@@ -5406,20 +5410,20 @@ mobx-react-devtools@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/mobx-react-devtools/-/mobx-react-devtools-6.0.3.tgz#4d536c8cdd77d9f4b81f5e8415d7bedccc6a2a99"
 
-mobx-react-router@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/mobx-react-router/-/mobx-react-router-4.0.5.tgz#5f270eebceb64c256bc2f3c6bde8c5d88e76819e"
+mobx-react-router@4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/mobx-react-router/-/mobx-react-router-4.0.4.tgz#b778618c84f16057f5ae9c09a4d364deade95fd8"
 
-mobx-react@^5.2.8:
-  version "5.2.8"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.2.8.tgz#059c7f29254d7cd36e103d79113103b40348d3bf"
+mobx-react@5.2.3:
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.2.3.tgz#cdf6141c2fe63377c5813cbd254e8ce0d4676631"
   dependencies:
     hoist-non-react-statics "^2.5.0"
     react-lifecycles-compat "^3.0.2"
 
-mobx@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.1.1.tgz#b8579ea7e7fbb07b79d56a71c3191287afc45f93"
+mobx@4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.3.1.tgz#334e5aab4916b1d43f0faf3605a64b1b4b3ccb8d"
 
 moment@^2.22.2:
   version "2.22.2"

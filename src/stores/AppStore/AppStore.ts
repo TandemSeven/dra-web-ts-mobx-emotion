@@ -78,7 +78,7 @@ export class AppStore {
   @action
   fetchCurrentLocation = async () => {
     const locationDetails = await getLocation();
-    runInAction(() => {
+    runInAction('Set location', () => {
       this.locationDetails = locationDetails;
     });
   };
@@ -88,7 +88,10 @@ export class AppStore {
    * get the hourly forecast. Nested async calls are necessary
    */
   init = async () => {
+    this.setLoading({ message: 'Loading Current Weather...' });
     await this.fetchCurrentLocation();
     await injectables.weatherStore.getHourlyForecast();
+    await injectables.weatherStore.getDailyForecast();
+    this.setDone();
   };
 }

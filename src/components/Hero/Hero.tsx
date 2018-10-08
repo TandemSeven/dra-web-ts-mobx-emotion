@@ -6,12 +6,12 @@ import styled, { css } from 'react-emotion';
 import moment from 'moment';
 
 import { primaryTheme } from '#themes';
-import { ForecastHourly, LocationDetails } from '#types';
+import { Forecast, LocationDetails } from '#types';
 import { FlexContainer } from '#styles';
 import { forecastIconMap } from '#helpers';
 
 const PaperRoot = css`
-  min-height: 43.75rem;
+  min-height: 36.75rem;
   display: flex;
   justify-content: center;
   padding: 1.5rem 0;
@@ -39,7 +39,7 @@ const HeroContainer = styled(Paper)`
 const ContentWrapper = styled.div`
   display: flex;
   flex: auto;
-  padding: 6rem;
+  padding: 4rem 6rem;
   max-height: inherit;
 `;
 
@@ -57,6 +57,8 @@ const Time = styled(Typography)`
 `;
 const ShortForecast = styled(Typography)`
   display: flex;
+  font-size: 1.25rem;
+  margin: 1.25rem 0 0;
 `;
 const Temperature = styled(Typography)`
   display: flex;
@@ -84,12 +86,11 @@ const LeftContent = styled(FlexContainer)`
   flex-direction: column;
 `;
 
-export interface HeroProps extends ForecastHourly, LocationDetails {}
+export interface HeroProps extends Forecast, LocationDetails {}
 
 export class Hero extends Component<HeroProps> {
   render() {
-    const { city, region, shortForecast, temperature } = this.props;
-    console.log(this.props);
+    const { city, region, shortForecast, temperature, icon } = this.props;
     return (
       <HeroContainer classes={PaperClasses} elevation={0} square={true}>
         <ContentWrapper>
@@ -106,9 +107,7 @@ export class Hero extends Component<HeroProps> {
             <FlexContainer>
               {temperature && (
                 <Temperature classes={TypographyClasses}>
-                  <sup className="weather-icon">
-                    {forecastIconMap(shortForecast)}
-                  </sup>
+                  <sup className="weather-icon">{forecastIconMap(icon)}</sup>
                   {temperature}
                   <sup className="degrees">&#8457;</sup>
                 </Temperature>

@@ -1,5 +1,3 @@
-import { ForecastHourly, LocationDetails } from '../';
+import { Forecast, LocationDetails } from '../';
 
-export interface CurrentLocationAndWeather
-  extends ForecastHourly,
-    LocationDetails {}
+export interface CurrentLocationAndWeather extends Forecast, LocationDetails {}

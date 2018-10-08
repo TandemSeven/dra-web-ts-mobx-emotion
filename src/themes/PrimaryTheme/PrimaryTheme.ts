@@ -23,7 +23,7 @@ export const primaryTheme: Theme = {
   primary: {
     dark: colors.blue['400'],
     main: colors.blue['400'],
-    light: colors.blue['400'],
+    light: colors.grey['400'],
     on: colors.white['400'],
   },
   secondary: {
