@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'react-emotion';
-
-const AppShell = styled.main`
-  height: 100vh;
-`;
 
 declare let process: any; // tslint:disable-line:no-any
 declare let require: any; // tslint:disable-line:no-any no-reserved-keywords
@@ -19,11 +14,10 @@ export class Root extends Component {
 
   public render() {
     return (
-      <AppShell>
+      <main>
         {this.props.children}
         {this.renderDevTool()}
-      </AppShell>
+      </main>
     );
   }
 }
-

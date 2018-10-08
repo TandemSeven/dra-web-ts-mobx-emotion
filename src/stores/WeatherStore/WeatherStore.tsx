@@ -1,19 +1,53 @@
-import { action, observable, runInAction } from 'mobx';
-import { CurrentEndPoints, ForecastHourly } from '#types';
+import { action, observable, runInAction, computed } from 'mobx';
+import moment from 'moment';
+import { CurrentEndPoints, Forecast, WeatherWeek } from '#types';
 import { injectables } from '#router';
 import { API_POINTS } from '#constants';
+import _ from 'lodash';
 
 export interface WeatherStoreProps {
   getCurrentEndPoints(): void;
+  getDailyForecast(): void;
   getHourlyForecast(): void;
-  forecastHourly: ForecastHourly[];
+  forecastDaily: Forecast[];
+  forecastHourly: Forecast[];
+  currentWeek: WeatherWeek[];
 }
 
 export class WeatherStore {
   @observable
   currentEndPoints: CurrentEndPoints = {};
   @observable
-  forecastHourly: ForecastHourly[] = [];
+  forecastHourly: Forecast[] = [];
+  @observable
+  forecastDaily: Forecast[] = [];
+  currentWeek: WeatherWeek[] = [];
+
+  @action
+  combineCurrentWeek = () => {
+    const temp: any = {};
+    this.forecastDaily.map(day => {
+      const dayOfWeek: string = moment(day.startTime).format('ddd');
+      if (!temp[dayOfWeek]) {
+        // create new instance
+        temp[dayOfWeek] = {
+          name: dayOfWeek,
+        };
+        // set day/night
+        day.isDaytime
+          ? (temp[dayOfWeek].day = day)
+          : (temp[dayOfWeek].night = day);
+      } else {
+        day.isDaytime
+          ? (temp[dayOfWeek].day = day)
+          : (temp[dayOfWeek].night = day);
+        this.currentWeek.push(temp[dayOfWeek]);
+      }
+    });
+    runInAction('Set current week', () => {
+      this.currentWeek = this.currentWeek;
+    });
+  };
 
   /**
    * @function getCurrentEndPoints
@@ -22,15 +56,13 @@ export class WeatherStore {
    */
   @action
   getCurrentEndPoints = async () => {
-    injectables.appStore.setLoading({ message: 'Loading Current Weather...' });
     try {
       const { lat, lon } = injectables.appStore.locationDetails;
       const response = await fetch(`${API_POINTS}/${lat},${lon}`);
       const json = response.json();
       // initial json
       const rawPoints = await json;
-      runInAction('getHourlyForecastSuccess', () => {
-        injectables.appStore.setDone();
+      runInAction('Get Current Endpoints', () => {
         // extract what we need from the response
         const { forecast, forecastHourly } = rawPoints.properties;
         this.currentEndPoints = {
@@ -57,9 +89,32 @@ export class WeatherStore {
       const json = response.json();
       const rawPoints = await json;
 
-      runInAction(() => {
+      runInAction('Get Hourly Forecast', () => {
         this.forecastHourly = [...rawPoints.properties.periods];
       });
+    } catch (err) {
+      injectables.appStore.setError({ message: `Err: ${err}` });
+    }
+  };
+  /**
+   * @function getDailyForecast
+   * - Gets & Sets the daily forecast for easy access
+   */
+  @action
+  getDailyForecast = async () => {
+    try {
+      await this.getCurrentEndPoints();
+
+      const { forecast } = this.currentEndPoints;
+      const response = await fetch(`${forecast}`);
+      const json = response.json();
+      const rawPoints = await json;
+
+      runInAction('Get Daily Forecast', () => {
+        this.forecastDaily = [...rawPoints.properties.periods];
+      });
+
+      this.combineCurrentWeek();
     } catch (err) {
       injectables.appStore.setError({ message: `Err: ${err}` });
     }
