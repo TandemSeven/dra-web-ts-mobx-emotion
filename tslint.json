@@ -32,7 +32,6 @@
     "newline-before-return": false,
     "no-inferrable-types": false,
     "prefer-method-signature": true,
-    "no-void-expression": [true, "ignore-arrow-function-shorthand"],
     "object-literal-shorthand": false,
     "no-unsafe-any": false,
     "array-type": [true, "array"],

@@ -17,6 +17,7 @@ export interface ForecastHourly {
 }
 
 export interface IShortForecast {
+  'Chance Rain Showers': 'Chance Rain Showers';
   'Mostly Sunny': 'Mostly Sunny';
   'Partly Cloudy': 'Partly Cloudy';
   Sunny: 'Sunny';

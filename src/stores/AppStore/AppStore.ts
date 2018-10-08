@@ -87,12 +87,8 @@ export class AppStore {
    * - fetch the users current location and coordinates and
    * get the hourly forecast. Nested async calls are necessary
    */
-  @action
   init = async () => {
     await this.fetchCurrentLocation();
-    const getHourlyForecast = await injectables.weatherStore.getHourlyForecast;
-    runInAction(() => {
-      getHourlyForecast();
-    });
+    await injectables.weatherStore.getHourlyForecast();
   };
 }
