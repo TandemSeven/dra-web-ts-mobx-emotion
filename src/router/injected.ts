@@ -1,7 +1,7 @@
 import { RouterStore } from 'mobx-react-router';
 import {
-  AppStore,
-  AppStoreProps,
+  GlobalStore,
+  GlobalStoreProps,
   LocationStore,
   LocationStoreProps,
   WeatherStore,
@@ -9,7 +9,7 @@ import {
 } from '#stores';
 
 export const injectables: Injectables = {
-  appStore: new AppStore(),
+  globalStore: new GlobalStore(),
   locationStore: new LocationStore(),
   routerStore: new RouterStore(),
   weatherStore: new WeatherStore(),
@@ -18,7 +18,7 @@ export const injectables: Injectables = {
 export const injectableNames: (keyof Injectables)[] = ['routerStore'];
 
 export interface Injectables {
-  appStore: AppStoreProps;
+  globalStore: GlobalStoreProps;
   locationStore: LocationStoreProps;
   weatherStore: WeatherStoreProps;
   routerStore: RouterStore;

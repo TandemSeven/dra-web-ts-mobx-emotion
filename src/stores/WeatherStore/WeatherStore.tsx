@@ -71,7 +71,7 @@ export class WeatherStore {
         };
       });
     } catch (err) {
-      injectables.appStore.setError({ message: `Err: ${err}` });
+      injectables.globalStore.setError({ message: `Err: ${err}` });
     }
   };
 
@@ -93,7 +93,7 @@ export class WeatherStore {
         this.forecastHourly = [...rawPoints.properties.periods];
       });
     } catch (err) {
-      injectables.appStore.setError({ message: `Err: ${err}` });
+      injectables.globalStore.setError({ message: `Err: ${err}` });
     }
   };
   /**
@@ -116,7 +116,7 @@ export class WeatherStore {
 
       this.combineCurrentWeek();
     } catch (err) {
-      injectables.appStore.setError({ message: `Err: ${err}` });
+      injectables.globalStore.setError({ message: `Err: ${err}` });
     }
   };
 }

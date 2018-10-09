@@ -6,17 +6,18 @@ import { Snackbar } from '@material-ui/core';
 
 import { Root } from '#helpers';
 import { Routes } from '#router';
-import { AppStoreProps } from '#stores';
+import { GlobalStoreProps } from '#stores';
+import { HamburgerMenu } from '#components';
 
 export interface AppProps {
   history: History;
 }
 
 interface InjectedProps extends AppProps {
-  appStore: AppStoreProps;
+  globalStore: GlobalStoreProps;
 }
 
-@inject('appStore')
+@inject('globalStore')
 @observer
 export class App extends Component<AppProps> {
   get injected(): InjectedProps {
@@ -25,7 +26,11 @@ export class App extends Component<AppProps> {
 
   public render() {
     const { history } = this.props;
-    const { isNotificationOpen, message } = this.injected.appStore;
+    const {
+      isHamburgerOpen,
+      isNotificationOpen,
+      message,
+    } = this.injected.globalStore;
     return (
       <Root>
         <Router history={history}>
@@ -37,6 +42,7 @@ export class App extends Component<AppProps> {
           open={isNotificationOpen}
           message={<span id="message-id">{message}</span>}
         />
+        <HamburgerMenu isOpen={isHamburgerOpen} />
       </Root>
     );
   }

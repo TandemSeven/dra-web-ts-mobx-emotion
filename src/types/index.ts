@@ -1,4 +1,4 @@
-export * from './App';
+export * from './Global';
 export * from './Common';
 export * from './Location';
 export * from './omit';
