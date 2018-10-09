@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 import { Paper, Typography } from '@material-ui/core';
 import { PaperClassKey } from '@material-ui/core/Paper';
 import { TypographyClassKey } from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import styled, { css } from 'react-emotion';
 import moment from 'moment';
 
 import { primaryTheme } from '#themes';
 import { Forecast, LocationDetails } from '#types';
+import { GlobalStoreProps } from '#stores';
 import { FlexContainer } from '#styles';
 import { forecastIconMap } from '#helpers';
 
@@ -93,19 +97,34 @@ const RightContent = styled(FlexContainer)`
   flex: auto;
 `;
 
+const MenuIconButton = styled(IconButton)`
+  color: white;
+  align-self: self-end;
+  margin-top: -3rem;
+`;
+
 const LeftContent = styled(FlexContainer)`
   flex-direction: column;
 `;
+
+interface InjectedProps extends HeroProps {
+  globalStore: GlobalStoreProps;
+}
 
 export interface HeroProps extends Forecast, LocationDetails {}
 interface HeroState {
   currentTime: string;
 }
 
+@inject('globalStore')
+@observer
 export class Hero extends Component<HeroProps, HeroState> {
   state: HeroState = {
     currentTime: moment().format('dddd, h:mm A'),
   };
+  get injected(): InjectedProps {
+    return this.props as InjectedProps;
+  }
   componentDidMount = () => {
     setInterval(() => {
       this.setState({
@@ -122,6 +141,8 @@ export class Hero extends Component<HeroProps, HeroState> {
       icon,
       cityImage = '',
     } = this.props;
+
+    const { toggleHamburgerMenu } = this.injected.globalStore;
     return (
       <HeroContainer
         classes={PaperClasses(cityImage)}
@@ -152,6 +173,12 @@ export class Hero extends Component<HeroProps, HeroState> {
           <RightContent>
             <Time classes={TypographyClasses}>{this.state.currentTime}</Time>
           </RightContent>
+          <MenuIconButton
+            aria-label="Open drawer"
+            onClick={toggleHamburgerMenu}
+          >
+            <MenuIcon fontSize="large" />
+          </MenuIconButton>
         </ContentWrapper>
         <SVGCurve viewBox="0 0 100 17">
           <path

@@ -31,7 +31,7 @@ export class LocationStore {
         };
       });
     } catch (err) {
-      injectables.appStore.setError({ message: `Err: ${err}` });
+      injectables.globalStore.setError({ message: `Err: ${err}` });
     }
   };
 
@@ -49,7 +49,7 @@ export class LocationStore {
         this.locationDetails.closestCity = closestCity;
       });
     } catch (err) {
-      injectables.appStore.setError({ message: `Err: ${err}` });
+      injectables.globalStore.setError({ message: `Err: ${err}` });
     }
   };
 
@@ -68,7 +68,7 @@ export class LocationStore {
         this.locationDetails.cityImageURL = cityImageURL;
       });
     } catch (err) {
-      injectables.appStore.setError({ message: `Err: ${err}` });
+      injectables.globalStore.setError({ message: `Err: ${err}` });
     }
   };
 
@@ -87,7 +87,7 @@ export class LocationStore {
         this.locationDetails.cityImage = cityImage;
       });
     } catch (err) {
-      injectables.appStore.setError({ message: `Err: ${err}` });
+      injectables.globalStore.setError({ message: `Err: ${err}` });
     }
   };
 
