@@ -10,17 +10,28 @@ import { Forecast, LocationDetails } from '#types';
 import { FlexContainer } from '#styles';
 import { forecastIconMap } from '#helpers';
 
-const PaperRoot = css`
+const PaperRoot = (cityImage: string) => css`
   min-height: 36.75rem;
   display: flex;
   justify-content: center;
   padding: 1.5rem 0;
-  background: #ca800d; // temp background
+  background: ${`url(${cityImage}) #ca800d`};
+  :before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(1, 1, 1, 0.3);
+  }
 `;
 
-const PaperClasses: { [K in PaperClassKey]?: string } = {
-  root: PaperRoot,
-};
+const PaperClasses: (
+  cityImage: string,
+) => { [K in PaperClassKey]?: string } = cityImage => ({
+  root: PaperRoot(cityImage),
+});
 
 const TypographyRoot = css`
   font-size: 2rem;
@@ -87,12 +98,38 @@ const LeftContent = styled(FlexContainer)`
 `;
 
 export interface HeroProps extends Forecast, LocationDetails {}
+interface HeroState {
+  currentTime: string;
+}
 
-export class Hero extends Component<HeroProps> {
+const CURRENT_TIME = moment().format('dddd, h:mm A');
+
+export class Hero extends Component<HeroProps, HeroState> {
+  state: HeroState = {
+    currentTime: CURRENT_TIME,
+  };
+  componentDidMount = () => {
+    setInterval(() => {
+      this.setState({
+        currentTime: CURRENT_TIME,
+      });
+    }, 1000);
+  };
   render() {
-    const { city, region, shortForecast, temperature, icon } = this.props;
+    const {
+      city,
+      region,
+      shortForecast,
+      temperature,
+      icon,
+      cityImage = '',
+    } = this.props;
     return (
-      <HeroContainer classes={PaperClasses} elevation={0} square={true}>
+      <HeroContainer
+        classes={PaperClasses(cityImage)}
+        elevation={0}
+        square={true}
+      >
         <ContentWrapper>
           <LeftContent>
             <FlexContainer>
@@ -115,9 +152,7 @@ export class Hero extends Component<HeroProps> {
             </FlexContainer>
           </LeftContent>
           <RightContent>
-            <Time classes={TypographyClasses}>
-              {moment().format('dddd, h:mm A')}
-            </Time>
+            <Time classes={TypographyClasses}>{this.state.currentTime}</Time>
           </RightContent>
         </ContentWrapper>
         <SVGCurve viewBox="0 0 100 17">

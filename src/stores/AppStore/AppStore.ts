@@ -2,14 +2,11 @@ import { action, observable, runInAction } from 'mobx';
 import { injectables } from '#router';
 import { State } from '#types';
 import { DONE, ERROR, LOADING, PENDING } from '#constants';
-import { Notification, NotificationMessage, LocationDetails } from '#types';
-import { getLocation } from '#helpers/GetLocation';
+import { Notification, NotificationMessage } from '#types';
 
 export interface AppStoreProps {
-  fetchCurrentLocation(): void;
   init(): void;
   isNotificationOpen: boolean;
-  locationDetails: LocationDetails;
   message?: NotificationMessage;
   setDone(notification?: Notification): void;
   setError(notification?: Notification): void;
@@ -26,9 +23,6 @@ export class AppStore {
 
   @observable
   message?: NotificationMessage = undefined;
-
-  @observable
-  locationDetails: LocationDetails = {};
 
   // notifications and state
   // =======================
@@ -75,13 +69,6 @@ export class AppStore {
     this.closeNotification();
   }
 
-  @action
-  fetchCurrentLocation = async () => {
-    const locationDetails = await getLocation();
-    runInAction('Set location', () => {
-      this.locationDetails = locationDetails;
-    });
-  };
   /**
    * @function init
    * - fetch the users current location and coordinates and
@@ -89,7 +76,8 @@ export class AppStore {
    */
   init = async () => {
     this.setLoading({ message: 'Loading Current Weather...' });
-    await this.fetchCurrentLocation();
+    await injectables.locationStore.getCurrentLocation();
+    await injectables.locationStore.getCityImages();
     await injectables.weatherStore.getHourlyForecast();
     await injectables.weatherStore.getDailyForecast();
     this.setDone();

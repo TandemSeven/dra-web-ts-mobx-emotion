@@ -1,5 +1,9 @@
 export interface LocationDetails {
+  bgImage?: string;
   city?: string;
+  cityImageURL?: string;
+  cityImage?: string;
+  closestCity?: string;
   lat?: number;
   lon?: number;
   region?: string;

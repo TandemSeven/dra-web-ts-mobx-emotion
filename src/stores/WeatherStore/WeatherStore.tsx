@@ -57,7 +57,7 @@ export class WeatherStore {
   @action
   getCurrentEndPoints = async () => {
     try {
-      const { lat, lon } = injectables.appStore.locationDetails;
+      const { lat, lon } = injectables.locationStore.locationDetails;
       const response = await fetch(`${API_POINTS}/${lat},${lon}`);
       const json = response.json();
       // initial json
