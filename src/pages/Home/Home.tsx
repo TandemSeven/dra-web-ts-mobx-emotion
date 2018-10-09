@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'react-emotion';
 
 import { Hero, SingleDayCard } from '#components';
-import { AppStoreProps, WeatherStoreProps } from '#stores';
+import { AppStoreProps, LocationStoreProps, WeatherStoreProps } from '#stores';
 
 const MainContent = styled(Grid)`
   max-width: 65rem;
@@ -15,10 +15,11 @@ export interface HomeProps {}
 
 interface InjectedProps extends HomeProps {
   appStore: AppStoreProps;
+  locationStore: LocationStoreProps;
   weatherStore: WeatherStoreProps;
 }
 
-@inject('appStore', 'weatherStore')
+@inject('appStore', 'locationStore', 'weatherStore')
 @observer
 export class Home extends Component {
   get injected(): InjectedProps {
@@ -28,7 +29,7 @@ export class Home extends Component {
     this.injected.appStore.init();
   }
   render() {
-    const { locationDetails } = this.injected.appStore;
+    const { locationDetails } = this.injected.locationStore;
     const { forecastHourly, currentWeek } = this.injected.weatherStore;
     return (
       <Fragment>
