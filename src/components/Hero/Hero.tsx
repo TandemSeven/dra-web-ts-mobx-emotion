@@ -102,16 +102,14 @@ interface HeroState {
   currentTime: string;
 }
 
-const CURRENT_TIME = moment().format('dddd, h:mm A');
-
 export class Hero extends Component<HeroProps, HeroState> {
   state: HeroState = {
-    currentTime: CURRENT_TIME,
+    currentTime: moment().format('dddd, h:mm A'),
   };
   componentDidMount = () => {
     setInterval(() => {
       this.setState({
-        currentTime: CURRENT_TIME,
+        currentTime: moment().format('dddd, h:mm A'),
       });
     }, 1000);
   };
