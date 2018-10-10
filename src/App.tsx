@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react';
 import { Router } from 'react-router-dom';
 import { History } from 'history';
 import { Snackbar } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { Root } from '#helpers';
 import { Routes } from '#router';
@@ -30,6 +32,7 @@ export class App extends Component<AppProps> {
       isHamburgerOpen,
       isNotificationOpen,
       message,
+      setDone,
     } = this.injected.globalStore;
     return (
       <Root>
@@ -39,8 +42,18 @@ export class App extends Component<AppProps> {
           </>
         </Router>
         <Snackbar
-          open={isNotificationOpen}
           message={<span id="message-id">{message}</span>}
+          open={isNotificationOpen}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={() => setDone()}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
         />
         <HamburgerMenu isOpen={isHamburgerOpen} />
       </Root>
