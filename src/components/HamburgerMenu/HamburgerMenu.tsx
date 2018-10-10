@@ -82,6 +82,7 @@ export class HamburgerMenu extends Component<
             margin="normal"
             onChange={this.handleChange('zipCode')}
             placeholder="Search by Zipcode"
+            type="number"
             value={this.state.zipCode}
             variant="outlined"
           />

@@ -1,4 +1,4 @@
-import { action, observable, runInAction, computed } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import moment from 'moment';
 import { CurrentEndPoints, Forecast, WeatherWeek } from '#types';
 import { injectables } from '#router';
@@ -61,8 +61,9 @@ export class WeatherStore {
    */
   @action
   getCurrentEndPoints = async () => {
+    const { globalStore, locationStore } = injectables;
     try {
-      const { lat, lon } = injectables.locationStore.locationDetails;
+      const { lat, lon } = locationStore.locationDetails;
       const response = await fetch(`${API_POINTS}/${lat},${lon}`);
       const json = response.json();
       // initial json
@@ -76,7 +77,7 @@ export class WeatherStore {
         };
       });
     } catch (err) {
-      injectables.globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({ message: `Err: ${err}` });
     }
   };
 
@@ -86,6 +87,7 @@ export class WeatherStore {
    */
   @action
   getHourlyForecast = async () => {
+    const { globalStore } = injectables;
     try {
       await this.getCurrentEndPoints();
 
@@ -99,7 +101,7 @@ export class WeatherStore {
         this.currentWeather = this.forecastHourly[0];
       });
     } catch (err) {
-      injectables.globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({ message: `Err: ${err}` });
     }
   };
   /**
@@ -108,6 +110,7 @@ export class WeatherStore {
    */
   @action
   getDailyForecast = async () => {
+    const { globalStore } = injectables;
     try {
       await this.getCurrentEndPoints();
 
@@ -122,7 +125,7 @@ export class WeatherStore {
 
       this.combineCurrentWeek();
     } catch (err) {
-      injectables.globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({ message: `Err: ${err}` });
     }
   };
 }

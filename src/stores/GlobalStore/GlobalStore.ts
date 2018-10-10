@@ -1,20 +1,20 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import { injectables } from '#router';
 import { AppState } from '#types';
 import { DONE, ERROR, LOADING, PENDING } from '#constants';
 import { Notification, NotificationMessage } from '#types';
 
 export interface GlobalStoreProps {
+  appState: AppState;
   init(): void;
-  isNotificationOpen: boolean;
   isHamburgerOpen: boolean;
+  isNotificationOpen: boolean;
   message?: NotificationMessage;
   setDone(notification?: Notification): void;
   setError(notification?: Notification): void;
   setLoading(notification?: Notification): void;
   setPending(): void;
   toggleHamburgerMenu(): void;
-  appState: AppState;
 }
 
 export class GlobalStore {
@@ -30,47 +30,46 @@ export class GlobalStore {
   // notifications and appState
   // =======================
   @action
-  openNotification() {
+  openNotification = () => {
     this.isNotificationOpen = true;
-  }
+  };
 
   @action
-  closeNotification() {
+  closeNotification = () => {
     this.isNotificationOpen = false;
-  }
+  };
 
   @action
-  setDone(notification?: Notification) {
+  setDone = (notification?: Notification) => {
     const message = notification && notification.message;
 
     this.appState = DONE;
     this.message = message;
     this.closeNotification();
-  }
+  };
 
   @action
-  setError(notification?: Notification) {
+  setError = (notification?: Notification) => {
     const message = notification && notification.message;
 
     this.appState = ERROR;
     this.openNotification();
     this.message = message;
-  }
+  };
 
   @action
-  setLoading(notification?: Notification) {
+  setLoading = (notification?: Notification) => {
     const message = notification && notification.message;
 
     this.appState = LOADING;
     this.openNotification();
     this.message = message;
-  }
+  };
 
   @action
-  setPending() {
+  setPending = () => {
     this.appState = PENDING;
-    this.closeNotification();
-  }
+  };
 
   @action
   toggleHamburgerMenu = () => {
@@ -82,6 +81,7 @@ export class GlobalStore {
    * - fetch the users current location and coordinates and
    * get the hourly forecast. Nested async calls are necessary
    */
+  @action
   init = async () => {
     this.setLoading({ message: 'Loading Current Weather...' });
     try {
@@ -89,9 +89,13 @@ export class GlobalStore {
       await injectables.locationStore.getCityImages();
       await injectables.weatherStore.getHourlyForecast();
       await injectables.weatherStore.getDailyForecast();
+      runInAction('Weather has been fetched', () => {
+        if (this.appState !== ERROR) {
+          this.setDone();
+        }
+      });
     } catch (err) {
       this.setError({ message: `Err: ${err}` });
     }
-    this.setDone();
   };
 }
