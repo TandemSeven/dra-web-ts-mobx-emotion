@@ -1,11 +1,12 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { Component, ChangeEvent, SyntheticEvent } from 'react';
 import { inject, observer } from 'mobx-react';
 import styled, { css } from 'react-emotion';
 import Drawer, { DrawerClassKey } from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 
-import { GlobalStoreProps } from '#stores';
+import { GlobalStoreProps, LocationStoreProps } from '#stores';
 import { Button, H1 } from '#components';
+import { LOADING } from '#constants';
 
 const Form = styled.form`
   display: flex;
@@ -32,31 +33,41 @@ export interface HamburgerMenuProps {
 
 interface InjectedProps extends HamburgerMenuProps {
   globalStore: GlobalStoreProps;
+  locationStore: LocationStoreProps;
 }
 
 interface HamburgerMenuState {
   [x: string]: string;
 }
 
-@inject('globalStore')
+@inject('globalStore', 'locationStore')
 @observer
 export class HamburgerMenu extends Component<
   HamburgerMenuProps,
   HamburgerMenuState
 > {
   state: HamburgerMenuState = {
-    city: '',
+    zipCode: '',
   };
   get injected(): InjectedProps {
     return this.props as InjectedProps;
   }
-  handleChange = (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
+  handleChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      [name]: event.target.value,
+      [name]: e.target.value,
     });
   };
+  handleSearch = (e: SyntheticEvent) => {
+    const { updateCityByZip } = this.injected.locationStore;
+    e.preventDefault();
+    updateCityByZip(this.state.zipCode);
+  };
   render() {
-    const { isHamburgerOpen, toggleHamburgerMenu } = this.injected.globalStore;
+    const {
+      isHamburgerOpen,
+      appState,
+      toggleHamburgerMenu,
+    } = this.injected.globalStore;
     return (
       <Drawer
         anchor="right"
@@ -67,15 +78,18 @@ export class HamburgerMenu extends Component<
         <Form>
           <H1>WeatherVane</H1>
           <TextField
-            id="outlined-with-placeholder"
-            label="Search by city"
-            placeholder="Search by city"
+            label="Search by Zipcode"
             margin="normal"
-            onChange={this.handleChange('city')}
+            onChange={this.handleChange('zipCode')}
+            placeholder="Search by Zipcode"
+            value={this.state.zipCode}
             variant="outlined"
-            value={this.state.city}
           />
-          <Button onClick={() => {}} variant="contained">
+          <Button
+            disabled={appState === LOADING || !this.state.zipCode}
+            onClick={this.handleSearch}
+            variant="contained"
+          >
             Search
           </Button>
         </Form>

@@ -65,7 +65,7 @@ export const SingleDayCard: SFC<SingleDayCardProps> = ({
       >
         {name}
       </Typography>
-      {forecastIconMap(day.icon)}
+      {forecastIconMap(day.icon || '')}
       <Temps>
         <Temp>
           {day.temperature}

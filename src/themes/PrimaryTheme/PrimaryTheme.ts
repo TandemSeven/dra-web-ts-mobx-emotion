@@ -35,6 +35,7 @@ export const primaryTheme: Theme = {
   background: {
     main: colors.grey['200'],
     on: colors.black['400'],
+    overlay: 'rgba(1, 1, 1, 0.3)',
   },
   surface: {
     main: colors.white['400'],

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Cloudy,
   Cold,
+  Fog,
   HeavyRain,
   Hot,
   MostlySunny,
@@ -13,37 +14,37 @@ import {
   Thunder,
   Tornado,
 } from '#styles';
-import { IconHash } from '#types';
 
 export const forecastIconMap = (iconString: string) => {
   const iconRegex = /^https:\/\/api.weather.gov\/icons\/land\/(day|night)\/(.*?)(,|\/|\?)/;
   const icon = iconRegex.exec(iconString)![2];
 
   const map: any = {
-    skc: <Sunny />,
-    few: <MostlySunny />,
-    sct: <PartlyCloudy />,
     bkn: <Cloudy />,
-    ovc: <Cloudy />,
-    wind_skc: <MostlySunny />,
-    wind_few: <Cloudy />,
-    wind_sct: <Cloudy />,
-    wind_bkn: <MostlySunny />,
-    wind_ovc: <Cloudy />,
-    snow: <Snow />,
-    rain_snow: <Snow />,
-    rain_sleet: <Sleet />,
-    fzra: <Sleet />,
-    sleet: <Sleet />,
-    rain: <HeavyRain />,
-    rain_showers: <Rain />,
-    rain_showers_hi: <Rain />,
-    tsra: <Thunder />,
-    tsra_sct: <Thunder />,
-    tsra_hi: <Thunder />,
-    tornado: <Tornado />,
-    hot: <Hot />,
     cold: <Cold />,
+    few: <MostlySunny />,
+    fog: <Fog />,
+    fzra: <Sleet />,
+    hot: <Hot />,
+    ovc: <Cloudy />,
+    rain_showers_hi: <Rain />,
+    rain_showers: <Rain />,
+    rain_sleet: <Sleet />,
+    rain_snow: <Snow />,
+    rain: <HeavyRain />,
+    sct: <PartlyCloudy />,
+    skc: <Sunny />,
+    sleet: <Sleet />,
+    snow: <Snow />,
+    tornado: <Tornado />,
+    tsra_hi: <Thunder />,
+    tsra_sct: <Thunder />,
+    tsra: <Thunder />,
+    wind_bkn: <MostlySunny />,
+    wind_few: <Cloudy />,
+    wind_ovc: <Cloudy />,
+    wind_sct: <Cloudy />,
+    wind_skc: <MostlySunny />,
   };
   return map[icon];
 };

@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { injectables } from '#router';
-import { State } from '#types';
+import { AppState } from '#types';
 import { DONE, ERROR, LOADING, PENDING } from '#constants';
 import { Notification, NotificationMessage } from '#types';
 
@@ -14,11 +14,12 @@ export interface GlobalStoreProps {
   setLoading(notification?: Notification): void;
   setPending(): void;
   toggleHamburgerMenu(): void;
+  appState: AppState;
 }
 
 export class GlobalStore {
   @observable
-  state: State = PENDING;
+  appState: AppState = PENDING;
   @observable
   isNotificationOpen: boolean = false;
   @observable
@@ -26,7 +27,7 @@ export class GlobalStore {
   @observable
   isHamburgerOpen: boolean = false;
 
-  // notifications and state
+  // notifications and appState
   // =======================
   @action
   openNotification() {
@@ -42,7 +43,7 @@ export class GlobalStore {
   setDone(notification?: Notification) {
     const message = notification && notification.message;
 
-    this.state = DONE;
+    this.appState = DONE;
     this.message = message;
     this.closeNotification();
   }
@@ -51,7 +52,7 @@ export class GlobalStore {
   setError(notification?: Notification) {
     const message = notification && notification.message;
 
-    this.state = ERROR;
+    this.appState = ERROR;
     this.openNotification();
     this.message = message;
   }
@@ -60,14 +61,14 @@ export class GlobalStore {
   setLoading(notification?: Notification) {
     const message = notification && notification.message;
 
-    this.state = LOADING;
+    this.appState = LOADING;
     this.openNotification();
     this.message = message;
   }
 
   @action
   setPending() {
-    this.state = PENDING;
+    this.appState = PENDING;
     this.closeNotification();
   }
 
@@ -83,10 +84,14 @@ export class GlobalStore {
    */
   init = async () => {
     this.setLoading({ message: 'Loading Current Weather...' });
-    await injectables.locationStore.getCurrentLocation();
-    await injectables.locationStore.getCityImages();
-    await injectables.weatherStore.getHourlyForecast();
-    await injectables.weatherStore.getDailyForecast();
+    try {
+      await injectables.locationStore.getCurrentLocation();
+      await injectables.locationStore.getCityImages();
+      await injectables.weatherStore.getHourlyForecast();
+      await injectables.weatherStore.getDailyForecast();
+    } catch (err) {
+      this.setError({ message: `Err: ${err}` });
+    }
     this.setDone();
   };
 }
