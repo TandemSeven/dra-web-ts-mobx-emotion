@@ -10,7 +10,11 @@ import moment from 'moment';
 
 import { primaryTheme } from '#themes';
 import { Forecast, LocationDetails } from '#types';
-import { GlobalStoreProps } from '#stores';
+import {
+  GlobalStoreProps,
+  LocationStoreProps,
+  WeatherStoreProps,
+} from '#stores';
 import { FlexContainer } from '#styles';
 import { forecastIconMap } from '#helpers';
 
@@ -19,15 +23,17 @@ const PaperRoot = (cityImage: string) => css`
   display: flex;
   justify-content: center;
   padding: 1.5rem 0;
-  background: ${`url(${cityImage}) #ca800d`};
+  background: ${`url(${cityImage}) ${primaryTheme.background.main}`};
+  background-size: cover;
+  background-position: center;
   :before {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(1, 1, 1, 0.3);
+    left: 0;
+    right: 0;
+    background: ${primaryTheme.background.overlay};
   }
 `;
 
@@ -109,6 +115,8 @@ const LeftContent = styled(FlexContainer)`
 
 interface InjectedProps extends HeroProps {
   globalStore: GlobalStoreProps;
+  locationStore: LocationStoreProps;
+  weatherStore: WeatherStoreProps;
 }
 
 export interface HeroProps extends Forecast, LocationDetails {}
@@ -116,7 +124,7 @@ interface HeroState {
   currentTime: string;
 }
 
-@inject('globalStore')
+@inject('globalStore', 'locationStore', 'weatherStore')
 @observer
 export class Hero extends Component<HeroProps, HeroState> {
   state: HeroState = {
@@ -133,16 +141,18 @@ export class Hero extends Component<HeroProps, HeroState> {
     }, 1000);
   };
   render() {
+    const { toggleHamburgerMenu } = this.injected.globalStore;
     const {
       city,
       region,
-      shortForecast,
-      temperature,
-      icon,
       cityImage = '',
-    } = this.props;
+    } = this.injected.locationStore.locationDetails;
+    const { currentWeather } = this.injected.weatherStore;
 
-    const { toggleHamburgerMenu } = this.injected.globalStore;
+    const { shortForecast, temperature, icon } = currentWeather;
+
+    console.log(temperature);
+
     return (
       <HeroContainer
         classes={PaperClasses(cityImage)}
@@ -163,7 +173,9 @@ export class Hero extends Component<HeroProps, HeroState> {
             <FlexContainer>
               {temperature && (
                 <Temperature classes={TypographyClasses}>
-                  <sup className="weather-icon">{forecastIconMap(icon)}</sup>
+                  <sup className="weather-icon">
+                    {forecastIconMap(icon || '')}
+                  </sup>
                   {temperature}
                   <sup className="degrees">&#8457;</sup>
                 </Temperature>

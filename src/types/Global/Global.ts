@@ -1,6 +1,6 @@
 import { DONE, ERROR, LOADING, PENDING } from '#constants';
 
-export type State =
+export type AppState =
   | typeof DONE
   | typeof ERROR
   | typeof LOADING

@@ -4,11 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'react-emotion';
 
 import { Hero, SingleDayCard } from '#components';
-import {
-  GlobalStoreProps,
-  LocationStoreProps,
-  WeatherStoreProps,
-} from '#stores';
+import { GlobalStoreProps, WeatherStoreProps } from '#stores';
 
 const MainContent = styled(Grid)`
   max-width: 65rem;
@@ -19,11 +15,10 @@ export interface HomeProps {}
 
 interface InjectedProps extends HomeProps {
   globalStore: GlobalStoreProps;
-  locationStore: LocationStoreProps;
   weatherStore: WeatherStoreProps;
 }
 
-@inject('globalStore', 'locationStore', 'weatherStore')
+@inject('globalStore', 'weatherStore')
 @observer
 export class Home extends Component {
   get injected(): InjectedProps {
@@ -33,22 +28,17 @@ export class Home extends Component {
     this.injected.globalStore.init();
   }
   render() {
-    const { locationDetails } = this.injected.locationStore;
-    const { forecastHourly, currentWeek } = this.injected.weatherStore;
+    const { currentWeek } = this.injected.weatherStore;
     return (
       <Fragment>
-        <Hero {...locationDetails} {...forecastHourly[0]} />
-        <section>
-          <MainContent container={true} spacing={24}>
-            {currentWeek.map((d: any) => {
-              return (
-                <Grid item={true} key={d.name} sm={true}>
-                  <SingleDayCard {...d} />
-                </Grid>
-              );
-            })}
-          </MainContent>
-        </section>
+        <Hero />
+        <MainContent container={true} spacing={24}>
+          {currentWeek.map((d: any) => (
+            <Grid item={true} key={d.name} sm={true}>
+              <SingleDayCard {...d} />
+            </Grid>
+          ))}
+        </MainContent>
       </Fragment>
     );
   }

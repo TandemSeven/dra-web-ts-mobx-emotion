@@ -1,6 +1,7 @@
 export interface BaselinePart {
   main: string; // the main color for each category
   on: string; // the font color that should be displayed on the main color
+  overlay?: string;
 }
 
 export interface PrimaryBaselinePart extends BaselinePart {

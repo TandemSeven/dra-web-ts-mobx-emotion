@@ -11,6 +11,7 @@ export interface WeatherStoreProps {
   getHourlyForecast(): void;
   forecastDaily: Forecast[];
   forecastHourly: Forecast[];
+  currentWeather: Forecast;
   currentWeek: WeatherWeek[];
 }
 
@@ -22,10 +23,14 @@ export class WeatherStore {
   @observable
   forecastDaily: Forecast[] = [];
   currentWeek: WeatherWeek[] = [];
+  @observable
+  currentWeather: Forecast = {};
 
   @action
   combineCurrentWeek = () => {
     const temp: any = {};
+    // clear current week
+    this.currentWeek = [];
     this.forecastDaily.map(day => {
       const dayOfWeek: string = moment(day.startTime).format('ddd');
       if (!temp[dayOfWeek]) {
@@ -91,6 +96,7 @@ export class WeatherStore {
 
       runInAction('Get Hourly Forecast', () => {
         this.forecastHourly = [...rawPoints.properties.periods];
+        this.currentWeather = this.forecastHourly[0];
       });
     } catch (err) {
       injectables.globalStore.setError({ message: `Err: ${err}` });

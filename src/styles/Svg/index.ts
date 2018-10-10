@@ -1,5 +1,6 @@
 export * from './Cloudy';
 export * from './Cold';
+export * from './Fog';
 export * from './HeavyRain';
 export * from './Hot';
 export * from './MostlySunny';
