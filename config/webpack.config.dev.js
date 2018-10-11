@@ -98,6 +98,7 @@ module.exports = {
     ],
     alias: {
       // CUSTOM PACKAGES
+      '#common': path.resolve(__dirname, '../src/common'),
       '#components': path.resolve(__dirname, '../src/components'),
       '#constants': path.resolve(__dirname, '../src/constants'),
       '#helpers': path.resolve(__dirname, '../src/helpers'),
@@ -106,7 +107,6 @@ module.exports = {
       '#pages': path.resolve(__dirname, '../src/pages'),
       '#router': path.resolve(__dirname, '../src/router'),
       '#stores': path.resolve(__dirname, '../src/stores'),
-      '#styles': path.resolve(__dirname, '../src/styles'),
       '#themes': path.resolve(__dirname, '../src/themes'),
       '#types': path.resolve(__dirname, '../src/types'),
     },

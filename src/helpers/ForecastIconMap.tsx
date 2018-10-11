@@ -13,7 +13,7 @@ import {
   Sunny,
   Thunder,
   Tornado,
-} from '#styles';
+} from '#common';
 
 export const forecastIconMap = (iconString: string) => {
   const iconRegex = /^https:\/\/api.weather.gov\/icons\/land\/(day|night)\/(.*?)(,|\/|\?)/;

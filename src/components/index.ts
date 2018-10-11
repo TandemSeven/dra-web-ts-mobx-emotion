@@ -1,6 +1,6 @@
 export * from './Button';
-export * from './Headings';
 export * from './HamburgerMenu';
+export * from './Headings';
 export * from './Hero';
 export * from './Hour';
 export * from './SingleDayCard';

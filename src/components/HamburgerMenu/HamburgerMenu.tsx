@@ -1,31 +1,12 @@
 import React, { Component, ChangeEvent, SyntheticEvent } from 'react';
 import { inject, observer } from 'mobx-react';
-import styled, { css } from 'react-emotion';
-import Drawer, { DrawerClassKey } from '@material-ui/core/Drawer';
+import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 
-import { GlobalStoreProps, LocationStoreProps } from '#stores';
 import { Button, H1 } from '#components';
+import { DrawerClasses, Form } from './styled';
+import { GlobalStoreProps, LocationStoreProps } from '#stores';
 import { LOADING } from '#constants';
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.25rem;
-  h1 {
-    margin-bottom: 1.25rem;
-  }
-`;
-
-const PaperAnchorRightClass = css`
-  width: 25rem;
-  display: flex;
-  align-items: center;
-`;
-
-const DrawerClasses: { [K in DrawerClassKey]?: string } = {
-  paperAnchorRight: PaperAnchorRightClass,
-};
 
 export interface HamburgerMenuProps {
   isOpen: boolean;
