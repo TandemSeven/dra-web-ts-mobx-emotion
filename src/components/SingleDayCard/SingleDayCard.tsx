@@ -1,57 +1,23 @@
 import React, { SFC } from 'react';
-import Card, { CardClassKey } from '@material-ui/core/Card';
-import Typography, { TypographyClassKey } from '@material-ui/core/Typography';
-import styled, { css } from 'react-emotion';
+import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
 import { WeatherWeekDay } from '#types';
 import { forecastIconMap } from '#helpers';
-import { primaryTheme } from '#themes';
-
-const CardRoot = css`
-  background: transparent;
-`;
-
-const CardClasses: { [K in CardClassKey]?: string } = {
-  root: CardRoot,
-};
-
-const TypographyClasses: (
-  isToday: boolean,
-) => { [K in TypographyClassKey]?: string } = isToday => ({
-  title: TypographyTitle(isToday),
-});
-
-const TypographyTitle = (isToday: boolean) => css`
-  font-weight: ${isToday ? 600 : 400};
-`;
-
-const WeatherCard = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  > svg {
-    margin: 0.625rem 0;
-  }
-`;
-
-const Temps = styled.div`
-  text-align: center;
-`;
-
-const Temp = styled.span`
-  font-weight: 600;
-  margin-right: 0.3125rem;
-`;
-
-const TempSecondary = styled.span`
-  color: ${primaryTheme.primary.light};
-`;
+import {
+  CardClasses,
+  Temp,
+  Temps,
+  TempSecondary,
+  TypographyClasses,
+  WeatherCard,
+} from './styled';
 
 export interface SingleDayCardProps extends WeatherWeekDay {}
 
 export const SingleDayCard: SFC<SingleDayCardProps> = ({
-  name,
   day,
+  name,
   night,
 }) => {
   const isToday = moment(new Date()).isSame(day.startTime, 'day');

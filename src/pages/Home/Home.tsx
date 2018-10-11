@@ -1,15 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import Grid from '@material-ui/core/Grid';
-import styled from 'react-emotion';
 
 import { Hero, SingleDayCard } from '#components';
 import { GlobalStoreProps, WeatherStoreProps } from '#stores';
-
-const MainContent = styled(Grid)`
-  max-width: 65rem;
-  margin: auto;
-`;
+import { MainContent } from './styled';
 
 export interface HomeProps {}
 

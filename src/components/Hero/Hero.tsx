@@ -1,117 +1,31 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Paper, Typography } from '@material-ui/core';
-import { PaperClassKey } from '@material-ui/core/Paper';
-import { TypographyClassKey } from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import styled, { css } from 'react-emotion';
 import moment from 'moment';
 
-import { primaryTheme } from '#themes';
 import { Forecast, LocationDetails } from '#types';
+import { FlexContainer, TypographyFlex } from '#common';
+import { primaryTheme } from '#themes';
 import {
   GlobalStoreProps,
   LocationStoreProps,
   WeatherStoreProps,
 } from '#stores';
-import { FlexContainer } from '#styles';
+import {
+  ContentWrapper,
+  HeroContainer,
+  LeftContent,
+  MenuIconButton,
+  PaperClasses,
+  Region,
+  RightContent,
+  ShortForecast,
+  SVGCurve,
+  Temperature,
+  TypographyClasses,
+} from './styled';
+
 import { forecastIconMap } from '#helpers';
-
-const PaperRoot = (cityImage: string) => css`
-  min-height: 36.75rem;
-  display: flex;
-  justify-content: center;
-  padding: 1.5rem 0;
-  background: ${`url(${cityImage}) ${primaryTheme.background.main}`};
-  background-size: cover;
-  background-position: center;
-  :before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: ${primaryTheme.background.overlay};
-  }
-`;
-
-const PaperClasses: (
-  cityImage: string,
-) => { [K in PaperClassKey]?: string } = cityImage => ({
-  root: PaperRoot(cityImage),
-});
-
-const TypographyRoot = css`
-  font-size: 2rem;
-  color: ${primaryTheme.primary.on};
-`;
-
-const TypographyClasses: { [K in TypographyClassKey]?: string } = {
-  root: TypographyRoot,
-};
-
-const HeroContainer = styled(Paper)`
-  max-height: 25rem;
-  padding: 0;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex: auto;
-  padding: 4rem 6rem;
-  max-height: inherit;
-`;
-
-const SVGCurve = styled.svg`
-  background: transparent;
-  position: absolute;
-  bottom: 0;
-`;
-
-const City = styled(Typography)`
-  display: flex;
-`;
-const Time = styled(Typography)`
-  display: flex;
-`;
-const ShortForecast = styled(Typography)`
-  display: flex;
-  font-size: 1.25rem;
-  margin: 1.25rem 0 0;
-`;
-const Temperature = styled(Typography)`
-  display: flex;
-  font-size: 10rem;
-  .weather-icon {
-    display: flex;
-    margin-top: 2rem;
-  }
-  .degrees {
-    font-size: 3.5rem;
-    font-weight: 200;
-  }
-`;
-const Region = styled(City)`
-  font-weight: 600;
-  margin-left: 0.3125rem;
-`;
-
-const RightContent = styled(FlexContainer)`
-  justify-content: flex-end;
-  flex: auto;
-`;
-
-const MenuIconButton = styled(IconButton)`
-  color: white;
-  align-self: self-end;
-  margin-top: -3rem;
-`;
-
-const LeftContent = styled(FlexContainer)`
-  flex-direction: column;
-`;
 
 interface InjectedProps extends HeroProps {
   globalStore: GlobalStoreProps;
@@ -144,14 +58,12 @@ export class Hero extends Component<HeroProps, HeroState> {
     const { toggleHamburgerMenu } = this.injected.globalStore;
     const {
       city,
-      region,
       cityImage = '',
+      region,
     } = this.injected.locationStore.locationDetails;
     const { currentWeather } = this.injected.weatherStore;
 
     const { shortForecast, temperature, icon } = currentWeather;
-
-    console.log(temperature);
 
     return (
       <HeroContainer
@@ -162,7 +74,11 @@ export class Hero extends Component<HeroProps, HeroState> {
         <ContentWrapper>
           <LeftContent>
             <FlexContainer>
-              {city && <City classes={TypographyClasses}>{`${city},`}</City>}
+              {city && (
+                <TypographyFlex classes={TypographyClasses}>
+                  {`${city},`}
+                </TypographyFlex>
+              )}
               <Region classes={TypographyClasses}>{region}</Region>
             </FlexContainer>
             <FlexContainer>
@@ -183,7 +99,9 @@ export class Hero extends Component<HeroProps, HeroState> {
             </FlexContainer>
           </LeftContent>
           <RightContent>
-            <Time classes={TypographyClasses}>{this.state.currentTime}</Time>
+            <TypographyFlex classes={TypographyClasses}>
+              {this.state.currentTime}
+            </TypographyFlex>
           </RightContent>
           <MenuIconButton
             aria-label="Open drawer"

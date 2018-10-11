@@ -22,6 +22,8 @@
     "lib": ["es2017", "es2018.promise", "dom"],
     "paths": {
       "*": ["types/*"],
+      "#common": ["src/common"],
+      "#common/*": ["src/common/*"],
       "#components": ["src/components"],
       "#components/*": ["src/components/*"],
       "#constants": ["src/constants"],
@@ -37,8 +39,6 @@
       "#router/*": ["src/router/*"],
       "#stores": ["src/stores"],
       "#stores/*": ["src/stores/*"],
-      "#styles": ["src/styles"],
-      "#styles/*": ["src/styles/*"],
       "#themes": ["src/themes"],
       "#themes/*": ["src/themes/*"],
       "#types": ["src/types"],
