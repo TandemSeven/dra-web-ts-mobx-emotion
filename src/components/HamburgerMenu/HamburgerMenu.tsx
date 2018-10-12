@@ -1,5 +1,6 @@
 import React, { Component, ChangeEvent, SyntheticEvent } from 'react';
 import { inject, observer } from 'mobx-react';
+import { RouterStore } from 'mobx-react-router';
 import { NavLink } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
@@ -21,13 +22,14 @@ export interface HamburgerMenuProps {
 interface InjectedProps extends HamburgerMenuProps {
   globalStore: GlobalStoreProps;
   locationStore: LocationStoreProps;
+  routerStore: RouterStore;
 }
 
 interface HamburgerMenuState {
   [x: string]: string;
 }
 
-@inject('globalStore', 'locationStore')
+@inject('globalStore', 'locationStore', 'routerStore')
 @observer
 export class HamburgerMenu extends Component<
   HamburgerMenuProps,
@@ -46,8 +48,11 @@ export class HamburgerMenu extends Component<
   };
   handleSearch = (e: SyntheticEvent) => {
     const { updateCityByZip } = this.injected.locationStore;
+    const { push } = this.injected.routerStore;
     e.preventDefault();
     updateCityByZip(this.state.zipCode);
+    // push to homepage
+    push('/');
   };
   render() {
     const {
