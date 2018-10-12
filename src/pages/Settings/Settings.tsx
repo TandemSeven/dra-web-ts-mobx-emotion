@@ -28,7 +28,10 @@ export class Settings extends Component<SettingsProps> {
   };
 
   render() {
-    const { chosenTheme } = this.injected.userStore;
+    const chosenTheme =
+      this.injected.userStore.chosenTheme ||
+      localStorage.getItem('chosenTheme');
+
     return (
       <SettingsWrapper container={true}>
         <H1>Settings</H1>
