@@ -48,11 +48,8 @@ export class HamburgerMenu extends Component<
   };
   handleSearch = (e: SyntheticEvent) => {
     const { updateCityByZip } = this.injected.locationStore;
-    const { push } = this.injected.routerStore;
     e.preventDefault();
     updateCityByZip(this.state.zipCode);
-    // push to homepage
-    push('/');
   };
   render() {
     const {

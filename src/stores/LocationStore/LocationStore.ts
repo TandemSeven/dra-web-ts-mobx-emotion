@@ -17,7 +17,7 @@ export class LocationStore {
 
   @action
   getByZipCode = async (zipCode: string) => {
-    const { globalStore } = injectables;
+    const { globalStore, routerStore } = injectables;
     try {
       const response = await fetch(`http://api.zippopotam.us/us/${zipCode}`);
       const json = await response.json();
@@ -43,6 +43,8 @@ export class LocationStore {
       });
 
       globalStore.toggleHamburgerMenu();
+      // push to homepage
+      routerStore.push('/');
     } catch (err) {
       return globalStore.setError({
         message: 'Please enter a valid zip code.',
