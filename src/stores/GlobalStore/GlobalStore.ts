@@ -86,7 +86,7 @@ export class GlobalStore {
     this.setLoading({ message: 'Loading Current Weather...' });
     try {
       await injectables.locationStore.getCurrentLocation();
-      await injectables.locationStore.getCityImages();
+      await injectables.locationStore.getCityImage();
       await injectables.weatherStore.getHourlyForecast();
       await injectables.weatherStore.getDailyForecast();
       runInAction('Weather has been fetched', () => {
