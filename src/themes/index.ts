@@ -1,7 +1,6 @@
 import { injectGlobal } from 'react-emotion';
 import 'typeface-montserrat';
 
-/* tslint:disable:no-unused-expression */
 injectGlobal`
   * {
     font-family: Montserrat,sans-serif;
@@ -18,4 +17,3 @@ injectGlobal`
 
 export * from './Colors';
 export * from './Themes';
-/* tslint:enable:no-unused-expression */

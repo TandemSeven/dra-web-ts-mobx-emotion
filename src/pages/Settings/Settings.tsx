@@ -3,11 +3,11 @@ import { inject, observer } from 'mobx-react';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
-import { H1 } from '#components';
 import { UserStoreProps } from '#stores';
 import { PRIMARY, SECONDARY, TERTIARY } from '#constants';
 import { UserChosenTheme } from '#types';
-import { SettingsWrapper } from './styled';
+import { SettingsWrapper, SettingsContainer } from './styled';
+import { Grid } from '@material-ui/core';
 
 interface InjectedProps extends SettingsProps {
   userStore: UserStoreProps;
@@ -34,22 +34,28 @@ export class Settings extends Component<SettingsProps> {
 
     return (
       <SettingsWrapper container={true}>
-        <H1>Settings</H1>
-        <ToggleButtonGroup
-          value="left"
-          exclusive={true}
-          onChange={this.handleThemeSelect}
-        >
-          <ToggleButton selected={chosenTheme === PRIMARY} value={PRIMARY}>
-            Primary
-          </ToggleButton>
-          <ToggleButton selected={chosenTheme === SECONDARY} value={SECONDARY}>
-            Secondary
-          </ToggleButton>
-          <ToggleButton selected={chosenTheme === TERTIARY} value={TERTIARY}>
-            Tertiary
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <h1>Settings</h1>
+        <SettingsContainer>
+          <h2>Choose a theme:</h2>
+          <ToggleButtonGroup
+            value="left"
+            exclusive={true}
+            onChange={this.handleThemeSelect}
+          >
+            <ToggleButton selected={chosenTheme === PRIMARY} value={PRIMARY}>
+              Primary
+            </ToggleButton>
+            <ToggleButton
+              selected={chosenTheme === SECONDARY}
+              value={SECONDARY}
+            >
+              Secondary
+            </ToggleButton>
+            <ToggleButton selected={chosenTheme === TERTIARY} value={TERTIARY}>
+              Tertiary
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </SettingsContainer>
       </SettingsWrapper>
     );
   }

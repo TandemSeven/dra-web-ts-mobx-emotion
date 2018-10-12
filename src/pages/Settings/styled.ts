@@ -8,3 +8,8 @@ export const SettingsWrapper = styled(Grid)`
   height: 100vh;
   align-items: center;
 `;
+
+export const SettingsContainer = styled(SettingsWrapper)`
+  max-width: 80rem;
+  height: auto;
+`;

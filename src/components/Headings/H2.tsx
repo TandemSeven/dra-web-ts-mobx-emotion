@@ -2,16 +2,20 @@ import React, { SFC } from 'react';
 import { css } from 'react-emotion';
 import Typography, { TypographyClassKey } from '@material-ui/core/Typography';
 
-const H1Class = css`
-  font-size: 3rem;
+const H2Class = css`
+  font-size: 2.85rem;
 `;
 
 const TypographyClasses: { [K in TypographyClassKey]?: string } = {
-  display1: H1Class,
+  display2: H2Class,
 };
 
-export const H1: SFC<{}> = ({ children }) => (
-  <Typography classes={TypographyClasses} variant="display1">
+export const H2: SFC<{}> = ({ children }) => (
+  <Typography
+    classes={TypographyClasses}
+    color="textPrimary"
+    variant="display2"
+  >
     {children}
   </Typography>
 );
