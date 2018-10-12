@@ -1,10 +1,8 @@
-import { Paper, Typography } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import { PaperClassKey } from '@material-ui/core/Paper';
 import { TypographyClassKey } from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import styled, { css } from 'react-emotion';
 
-import { primaryTheme } from '#themes';
 import { FlexContainer, TypographyFlex } from '#common';
 
 const PaperRoot = (cityImage: string) => css`
@@ -12,7 +10,7 @@ const PaperRoot = (cityImage: string) => css`
   display: flex;
   justify-content: center;
   padding: 1.5rem 0;
-  background: ${`url(${cityImage}) ${primaryTheme.background.main}`};
+  background: ${`url(${cityImage})`};
   background-size: cover;
   background-position: center;
   :before {
@@ -22,13 +20,12 @@ const PaperRoot = (cityImage: string) => css`
     bottom: 0;
     left: 0;
     right: 0;
-    background: ${primaryTheme.background.overlay};
+    background: rgba(1, 1, 1, 0.3);
   }
 `;
 
 const TypographyRoot = css`
   font-size: 2rem;
-  color: ${primaryTheme.primary.on};
 `;
 
 export const PaperClasses: (
@@ -57,6 +54,12 @@ export const SVGCurve = styled.svg`
   background: transparent;
   position: absolute;
   bottom: 0;
+  > path:nth-child(1) {
+    fill: ${({ theme }) => theme.palette.primary.main};
+  }
+  > path:nth-child(2) {
+    fill: ${({ theme }) => theme.palette.primary.light};
+  }
 `;
 
 export const ShortForecast = styled(TypographyFlex)`
@@ -64,6 +67,7 @@ export const ShortForecast = styled(TypographyFlex)`
   margin: 1.25rem 0 0;
 `;
 export const Temperature = styled(TypographyFlex)`
+  color: ${({ theme }) => theme.palette.primary.light};
   font-size: 10rem;
   .weather-icon {
     display: flex;
@@ -75,6 +79,7 @@ export const Temperature = styled(TypographyFlex)`
   }
 `;
 export const Region = styled(TypographyFlex)`
+  color: ${({ theme }) => theme.palette.primary.light};
   font-weight: 600;
   margin-left: 0.3125rem;
 `;
@@ -82,12 +87,6 @@ export const Region = styled(TypographyFlex)`
 export const RightContent = styled(FlexContainer)`
   justify-content: flex-end;
   flex: auto;
-`;
-
-export const MenuIconButton = styled(IconButton)`
-  color: white;
-  align-self: self-end;
-  margin-top: -3rem;
 `;
 
 export const LeftContent = styled(FlexContainer)`

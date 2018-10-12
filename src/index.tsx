@@ -1,21 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
-import { ThemeProvider } from 'emotion-theming';
-import {
-  createGenerateClassName,
-  jssPreset,
-  MuiThemeProvider,
-} from '@material-ui/core/styles';
+import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import { history, injectables } from '#router';
 
 import { App } from './App';
 
 import { create } from 'jss';
 
-import { primaryTheme } from '#themes';
 import { MobxIntlProvider, defaultLocale } from '#i18n';
-import { appTheme } from '#themes';
+
+import { EmotionWrapper, MUIWrapper } from '#themes';
 
 // START: material-ui CSS-in-JSS specificty imports
 import JssProvider from 'react-jss/lib/JssProvider';
@@ -48,15 +43,15 @@ const jss = create(jssPreset());
 
 ReactDOM.render(
   <JssProvider jss={jss} generateClassName={generateClassName}>
-    <ThemeProvider theme={primaryTheme}>
-      <MuiThemeProvider theme={appTheme}>
-        <Provider {...injectables}>
+    <Provider {...injectables}>
+      <EmotionWrapper>
+        <MUIWrapper>
           <MobxIntlProvider defaultLocale={defaultLocale}>
             <App history={history} />
           </MobxIntlProvider>
-        </Provider>
-      </MuiThemeProvider>
-    </ThemeProvider>
+        </MUIWrapper>
+      </EmotionWrapper>
+    </Provider>
   </JssProvider>,
   document.getElementById('root'),
 );

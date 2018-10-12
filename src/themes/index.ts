@@ -1,22 +1,21 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { primaryTheme } from './PrimaryTheme';
+import { injectGlobal } from 'react-emotion';
+import 'typeface-montserrat';
+
+/* tslint:disable:no-unused-expression */
+injectGlobal`
+  * {
+    font-family: Montserrat,sans-serif;
+    font-weight: normal;
+    position: relative;
+  }
+  body {
+    margin: 0;
+    a {
+      text-decoration: none;
+    }
+  }
+`;
 
 export * from './Colors';
-export { primaryTheme } from './PrimaryTheme';
-
-export const appTheme = createMuiTheme({
-	palette: {
-		primary: {
-			main: primaryTheme.primary.main,
-		},
-		secondary: {
-			main: primaryTheme.secondary.main,
-		},
-		error: {
-			main: primaryTheme.error.main,
-		},
-		text: {
-			secondary: '#aaa',
-		},
-	},
-});
+export * from './Themes';
+/* tslint:enable:no-unused-expression */
