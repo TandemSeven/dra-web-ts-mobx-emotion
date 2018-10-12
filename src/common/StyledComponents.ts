@@ -10,5 +10,6 @@ export const FlexColumn = styled(FlexContainer)`
 `;
 
 export const TypographyFlex = styled(Typography)`
+  color: ${({ theme }) => theme.palette.primary.light};
   display: flex;
 `;

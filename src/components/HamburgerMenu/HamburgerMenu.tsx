@@ -1,7 +1,13 @@
 import React, { Component, ChangeEvent, SyntheticEvent } from 'react';
 import { inject, observer } from 'mobx-react';
+import { NavLink } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { Button, H1 } from '#components';
 import { DrawerClasses, Form } from './styled';
@@ -49,6 +55,7 @@ export class HamburgerMenu extends Component<
       appState,
       toggleHamburgerMenu,
     } = this.injected.globalStore;
+    const currentRoute = window.location.pathname;
     return (
       <Drawer
         anchor="right"
@@ -68,6 +75,7 @@ export class HamburgerMenu extends Component<
             variant="outlined"
           />
           <Button
+            color="primary"
             disabled={appState === LOADING || !this.state.zipCode}
             onClick={this.handleSearch}
             variant="contained"
@@ -75,6 +83,18 @@ export class HamburgerMenu extends Component<
             Search
           </Button>
         </Form>
+        <List>
+          <NavLink to={currentRoute === '/settings' ? '/' : '/settings'}>
+            <ListItem button={true} onClick={toggleHamburgerMenu}>
+              <ListItemIcon>
+                <AccountCircle />
+              </ListItemIcon>
+              <ListItemText
+                secondary={currentRoute === '/settings' ? 'Home' : 'Settings'}
+              />
+            </ListItem>
+          </NavLink>
+        </List>
       </Drawer>
     );
   }

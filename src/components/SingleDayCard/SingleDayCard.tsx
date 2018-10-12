@@ -6,7 +6,6 @@ import { WeatherWeekDay } from '#types';
 import { forecastIconMap } from '#helpers';
 import {
   CardClasses,
-  Temp,
   Temps,
   TempSecondary,
   TypographyClasses,
@@ -33,11 +32,11 @@ export const SingleDayCard: SFC<SingleDayCardProps> = ({
       </Typography>
       {forecastIconMap(day.icon || '')}
       <Temps>
-        <Temp>
+        <span>
           {day.temperature}
           &#176;
           {day.temperatureUnit}
-        </Temp>
+        </span>
         <TempSecondary>
           {night.temperature}
           &#176;

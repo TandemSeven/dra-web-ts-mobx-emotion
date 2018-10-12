@@ -1,7 +1,6 @@
 import Card, { CardClassKey } from '@material-ui/core/Card';
 import { TypographyClassKey } from '@material-ui/core/Typography';
 import styled, { css } from 'react-emotion';
-import { primaryTheme } from '#themes';
 
 const CardRoot = css`
   background: transparent;
@@ -33,11 +32,7 @@ export const Temps = styled.div`
   text-align: center;
 `;
 
-export const Temp = styled.span`
-  font-weight: 600;
-  margin-right: 0.3125rem;
-`;
-
 export const TempSecondary = styled.span`
-  color: ${primaryTheme.primary.light};
+  font-weight: 600;
+  margin-left: 0.3125rem;
 `;
