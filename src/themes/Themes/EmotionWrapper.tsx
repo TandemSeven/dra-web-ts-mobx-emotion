@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { ThemeProvider } from 'emotion-theming';
 
-import { UserStoreProps } from '#stores';
-
 import { primaryTheme, secondaryTheme, tertiaryTheme } from '#themes';
+import { UserStoreProps } from '#stores';
 
 interface InjectedProps extends EmotionWrapperProps {
   userStore: UserStoreProps;
@@ -19,14 +18,17 @@ export class EmotionWrapper extends Component<EmotionWrapperProps> {
     return this.props as InjectedProps;
   }
   render() {
-    const { chosenTheme } = this.injected.userStore;
-    const map = {
+    const chosenTheme =
+      this.injected.userStore.chosenTheme ||
+      localStorage.getItem('chosenTheme');
+
+    const map: any = {
       primaryTheme,
       secondaryTheme,
       tertiaryTheme,
     };
     return (
-      <ThemeProvider theme={map[chosenTheme]}>
+      <ThemeProvider theme={map[chosenTheme!]}>
         {this.props.children}
       </ThemeProvider>
     );

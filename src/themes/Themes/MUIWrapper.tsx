@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import { UserStoreProps } from '#stores';
-
 import { primaryTheme, secondaryTheme, tertiaryTheme } from '#themes';
+import { UserStoreProps } from '#stores';
 
 interface InjectedProps extends MUIWrapperProps {
   userStore: UserStoreProps;
@@ -19,14 +18,17 @@ export class MUIWrapper extends Component<MUIWrapperProps> {
     return this.props as InjectedProps;
   }
   render() {
-    const { chosenTheme } = this.injected.userStore;
-    const map = {
+    const chosenTheme =
+      this.injected.userStore.chosenTheme ||
+      localStorage.getItem('chosenTheme');
+
+    const map: any = {
       primaryTheme,
       secondaryTheme,
       tertiaryTheme,
     };
     return (
-      <MuiThemeProvider theme={map[chosenTheme]}>
+      <MuiThemeProvider theme={map[chosenTheme!]}>
         {this.props.children}
       </MuiThemeProvider>
     );

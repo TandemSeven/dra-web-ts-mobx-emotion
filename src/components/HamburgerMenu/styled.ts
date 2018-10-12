@@ -28,6 +28,6 @@ export const MenuIconButton = styled(IconButton)`
   margin-top: -3rem;
   position: absolute;
   z-index: 1;
-  right: 7rem;
-  top: 5rem;
+  right: 3rem;
+  top: 4rem;
 `;

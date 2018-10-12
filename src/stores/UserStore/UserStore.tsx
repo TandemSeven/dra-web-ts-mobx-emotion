@@ -1,7 +1,6 @@
 import { observable, action } from 'mobx';
 
 import { UserChosenTheme } from '#types';
-import { PRIMARY } from '#constants';
 
 export interface UserStoreProps {
   chosenTheme: UserChosenTheme;
@@ -10,10 +9,11 @@ export interface UserStoreProps {
 
 export class UserStore {
   @observable
-  chosenTheme: UserChosenTheme = PRIMARY;
+  chosenTheme: UserChosenTheme = null;
 
   @action
   onChangeTheme = (chosenTheme: UserChosenTheme) => {
     this.chosenTheme = chosenTheme;
+    localStorage.setItem('chosenTheme', chosenTheme!);
   };
 }
