@@ -7,7 +7,6 @@ import { UserStoreProps } from '#stores';
 import { PRIMARY, SECONDARY, TERTIARY } from '#constants';
 import { UserChosenTheme } from '#types';
 import { SettingsWrapper, SettingsContainer } from './styled';
-import { Grid } from '@material-ui/core';
 
 interface InjectedProps extends SettingsProps {
   userStore: UserStoreProps;

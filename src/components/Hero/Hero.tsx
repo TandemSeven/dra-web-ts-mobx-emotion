@@ -34,7 +34,7 @@ interface HeroState {
 @observer
 export class Hero extends Component<HeroProps, HeroState> {
   state: HeroState = {
-    currentTime: moment().format('dddd, h:mm A'),
+    currentTime: '',
   };
   get injected(): InjectedProps {
     return this.props as InjectedProps;

@@ -5,12 +5,9 @@ import { API_IP_IMAGES, API_IP, ERROR } from '#constants';
 
 export interface LocationStoreProps {
   getByZipCode(zipCode: string): void;
-  getCityImages(): void;
-  getClosestCity(): void;
+  getCityImage(): void;
   getCurrentLocation(): void;
-  getImageUrl(): void;
   locationDetails: LocationDetails;
-  setCityImage(): void;
   updateCityByZip(zipCode: string): void;
 }
 
@@ -75,11 +72,14 @@ export class LocationStore {
   };
 
   @action
-  getClosestCity = async () => {
+  getCityImage = async () => {
     const { globalStore } = injectables;
     try {
       const { lat, lon } = this.locationDetails;
-      const response = await fetch(`${API_IP_IMAGES}/${lat},${lon}`);
+      const response = await fetch(
+        `${API_IP_IMAGES}/${lat},${lon}/?embed=location:nearest-urban-areas/
+        location:nearest-urban-area/ua:images`,
+      );
       const json = await response.json();
 
       // error handling
@@ -89,88 +89,19 @@ export class LocationStore {
         });
       }
 
-      runInAction('Get closest city', () => {
-        const closestCity =
-          json._embedded['location:nearest-urban-areas'][0]._links[
+      runInAction('Get city image', () => {
+        const cityImage =
+          json._embedded['location:nearest-urban-areas'][0]._embedded[
             'location:nearest-urban-area'
-          ].href;
+          ]._embedded['ua:images'].photos[0].image.web;
 
-        this.locationDetails.closestCity = closestCity;
+        this.locationDetails.cityImage = cityImage;
       });
     } catch (err) {
       return globalStore.setError({
         message: 'Cannot get the closest city.',
       });
     }
-  };
-
-  @action
-  getImageUrl = async () => {
-    const { globalStore } = injectables;
-    const { closestCity } = this.locationDetails;
-    try {
-      // provide a fallback check
-      if (!closestCity) {
-        await this.getClosestCity();
-      }
-
-      const response = await fetch(closestCity!);
-      const json = await response.json();
-
-      // error handling
-      if (!json._links) {
-        return globalStore.setError({
-          message: 'Cannot get an image URL.',
-        });
-      }
-
-      runInAction('Get city image URL', () => {
-        const cityImageURL = json._links['ua:images'].href;
-
-        this.locationDetails.cityImageURL = cityImageURL;
-      });
-    } catch (err) {
-      return globalStore.setError({
-        message: 'Cannot get an image URL.',
-      });
-    }
-  };
-
-  @action
-  setCityImage = async () => {
-    const { globalStore } = injectables;
-    const { cityImageURL } = this.locationDetails;
-
-    try {
-      // provide a fallback check
-      if (!cityImageURL) {
-        await this.getImageUrl();
-      }
-
-      const response = await fetch(cityImageURL!);
-      const json = await response.json();
-
-      if (!json.photos) {
-        return runInAction('Set blank image', () => {
-          this.locationDetails.cityImage = undefined;
-        });
-      }
-
-      return runInAction('Get city images', () => {
-        const cityImage = json.photos[0].image.web;
-        this.locationDetails.cityImage = cityImage;
-      });
-    } catch (err) {
-      return globalStore.setError({
-        message: 'Cannot get a city image.',
-      });
-    }
-  };
-
-  getCityImages = async () => {
-    await this.getClosestCity();
-    await this.getImageUrl();
-    await this.setCityImage();
   };
 
   @action
@@ -182,7 +113,7 @@ export class LocationStore {
 
     try {
       await this.getByZipCode(zipCode);
-      await this.getCityImages();
+      await this.getCityImage();
       await weatherStore.getHourlyForecast();
       await weatherStore.getDailyForecast();
       runInAction('Weather has been fetched', () => {
