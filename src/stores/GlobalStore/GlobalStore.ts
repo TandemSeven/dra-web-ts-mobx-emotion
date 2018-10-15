@@ -77,16 +77,17 @@ export class GlobalStore {
   };
 
   /**
+   * @async
    * @function init
-   * - fetch the users current location and coordinates and
-   * get the hourly forecast. Nested async calls are necessary
+   * - Triggers a promise chain that fetches
+   * the users current location/coordinates and gets the hourly forecast
    */
   @action
   init = async () => {
     this.setLoading({ message: 'Loading Current Weather...' });
     try {
       await injectables.locationStore.getCurrentLocation();
-      await injectables.locationStore.getCityImage();
+      await injectables.locationStore.getCurrentCityImage();
       await injectables.weatherStore.getHourlyForecast();
       await injectables.weatherStore.getDailyForecast();
       runInAction('Weather has been fetched', () => {

@@ -1,11 +1,12 @@
 import { action, observable, runInAction } from 'mobx';
 import { LocationDetails } from '#types';
 import { injectables } from '#router';
-import { API_IP_IMAGES, API_IP, ERROR } from '#constants';
+import { ERROR } from '#constants';
+import { getCityImage, getLocation, getCityByZip } from '#helpers';
 
 export interface LocationStoreProps {
   getByZipCode(zipCode: string): void;
-  getCityImage(): void;
+  getCurrentCityImage(): void;
   getCurrentLocation(): void;
   locationDetails: LocationDetails;
   updateCityByZip(zipCode: string): void;
@@ -15,35 +16,29 @@ export class LocationStore {
   @observable
   locationDetails: LocationDetails = {};
 
+  /**
+   * @async
+   * @function getByZipCode
+   * @param {string} zipCode - zip code
+   * - Gets & Sets the location details
+   */
   @action
   getByZipCode = async (zipCode: string) => {
     const { globalStore, routerStore } = injectables;
     try {
-      const response = await fetch(`http://api.zippopotam.us/us/${zipCode}`);
-      const json = await response.json();
+      const response = await getCityByZip(zipCode);
 
-      // error handling
-      if (!json.places) {
+      if (!response) {
         return globalStore.setError({
           message: 'Please enter a valid zip code.',
         });
       }
 
       runInAction('Get by zip code', () => {
-        const final = json.places[0];
-        const { latitude, longitude, state } = final;
-
-        this.locationDetails = {
-          city: final['place name'],
-          lat: parseFloat(latitude),
-          lon: parseFloat(longitude),
-          region: final['state abbreviation'],
-          regionName: state,
-        };
+        this.locationDetails = response;
       });
 
       globalStore.toggleHamburgerMenu();
-      // push to homepage
       routerStore.push('/');
     } catch (err) {
       return globalStore.setError({
@@ -52,51 +47,45 @@ export class LocationStore {
     }
   };
 
+  /**
+   * @async
+   * @function getCurrentLocation
+   * - Gets & Sets the location details based on
+   * the users' IP address
+   */
   @action
   getCurrentLocation = async () => {
     const { globalStore } = injectables;
     try {
-      const response = await fetch(API_IP);
-      const { city, region, regionName, lat, lon } = await response.json();
-
+      const response = await getLocation();
       runInAction('Set location', () => {
-        this.locationDetails = {
-          city,
-          lat,
-          lon,
-          region,
-          regionName,
-        };
+        this.locationDetails = response;
       });
     } catch (err) {
       globalStore.setError({ message: `Err: ${err}` });
     }
   };
 
+  /**
+   * @async
+   * @function getCurrentCityImage
+   * - Gets & Sets the city image
+   */
   @action
-  getCityImage = async () => {
+  getCurrentCityImage = async () => {
     const { globalStore } = injectables;
-    try {
-      const { lat, lon } = this.locationDetails;
-      const response = await fetch(
-        `${API_IP_IMAGES}/${lat},${lon}/?embed=location:nearest-urban-areas/
-        location:nearest-urban-area/ua:images`,
-      );
-      const json = await response.json();
+    const { lat, lon } = this.locationDetails;
 
-      // error handling
-      if (!json._embedded['location:nearest-urban-areas'][0]) {
+    try {
+      const { cityImage } = await getCityImage(lat!, lon!);
+
+      if (!cityImage) {
         return globalStore.setError({
           message: 'Cannot get the closest city.',
         });
       }
 
       runInAction('Get city image', () => {
-        const cityImage =
-          json._embedded['location:nearest-urban-areas'][0]._embedded[
-            'location:nearest-urban-area'
-          ]._embedded['ua:images'].photos[0].image.web;
-
         this.locationDetails.cityImage = cityImage;
       });
     } catch (err) {
@@ -106,6 +95,14 @@ export class LocationStore {
     }
   };
 
+  /**
+   * @async
+   * @param {string} zipCode - zipCode
+   * @function updateCityByZip
+   * - Triggers a promise chain that updates
+   * the location and weather based on the zipcode
+   * input by the user
+   */
   @action
   updateCityByZip = async (zipCode: string) => {
     const { globalStore, weatherStore } = injectables;
@@ -115,7 +112,7 @@ export class LocationStore {
 
     try {
       await this.getByZipCode(zipCode);
-      await this.getCityImage();
+      await this.getCurrentCityImage();
       await weatherStore.getHourlyForecast();
       await weatherStore.getDailyForecast();
       runInAction('Weather has been fetched', () => {

@@ -2,8 +2,12 @@ import { action, observable, runInAction } from 'mobx';
 import moment from 'moment';
 import { CurrentEndPoints, Forecast, WeatherWeek } from '#types';
 import { injectables } from '#router';
-import { API_POINTS } from '#constants';
-import _ from 'lodash';
+
+import {
+  getWeatherEndpoints,
+  getForecastHourly,
+  getForecastDaily,
+} from '#helpers';
 
 export interface WeatherStoreProps {
   getCurrentEndPoints(): void;
@@ -26,6 +30,11 @@ export class WeatherStore {
   @observable
   currentWeather: Forecast = {};
 
+  /**
+   * @async
+   * @function combineCurrentWeek
+   * - Forms an object with day, night, and name
+   */
   @action
   combineCurrentWeek = () => {
     const temp: any = {};
@@ -55,25 +64,24 @@ export class WeatherStore {
   };
 
   /**
+   * @async
    * @function getCurrentEndPoints
    * - Gets & Sets the endpoints listed for hourly and generic forecasts
-   * for easy access
    */
   @action
   getCurrentEndPoints = async () => {
     const { globalStore, locationStore } = injectables;
     try {
       const { lat, lon } = locationStore.locationDetails;
-      const response = await fetch(`${API_POINTS}/${lat},${lon}`);
-      const json = response.json();
-      // initial json
-      const rawPoints = await json;
+      const { forecastUrl, forecastHourlyUrl } = await getWeatherEndpoints(
+        lat!,
+        lon!,
+      );
+
       runInAction('Get Current Endpoints', () => {
-        // extract what we need from the response
-        const { forecast, forecastHourly } = rawPoints.properties;
         this.currentEndPoints = {
-          forecast,
-          forecastHourly,
+          forecastUrl,
+          forecastHourlyUrl,
         };
       });
     } catch (err) {
@@ -82,23 +90,23 @@ export class WeatherStore {
   };
 
   /**
+   * @async
    * @function getHourlyForecast
-   * - Gets & Sets the hourly forecast for easy access
+   * - Gets & Sets the hourly forecast
    */
   @action
   getHourlyForecast = async () => {
     const { globalStore } = injectables;
     try {
       await this.getCurrentEndPoints();
-
-      const { forecastHourly } = this.currentEndPoints;
-      const response = await fetch(`${forecastHourly}`);
-      const json = response.json();
-      const rawPoints = await json;
+      const { forecastHourlyUrl } = this.currentEndPoints;
+      const { forecastHourly, currentWeather } = await getForecastHourly(
+        forecastHourlyUrl!,
+      );
 
       runInAction('Get Hourly Forecast', () => {
-        this.forecastHourly = [...rawPoints.properties.periods];
-        this.currentWeather = this.forecastHourly[0];
+        this.forecastHourly = forecastHourly!;
+        this.currentWeather = currentWeather;
       });
     } catch (err) {
       globalStore.setError({ message: `Err: ${err}` });
@@ -106,21 +114,18 @@ export class WeatherStore {
   };
   /**
    * @function getDailyForecast
-   * - Gets & Sets the daily forecast for easy access
+   * - Gets & Sets the daily forecast
    */
   @action
   getDailyForecast = async () => {
     const { globalStore } = injectables;
     try {
       await this.getCurrentEndPoints();
-
-      const { forecast } = this.currentEndPoints;
-      const response = await fetch(`${forecast}`);
-      const json = response.json();
-      const rawPoints = await json;
+      const { forecastUrl } = this.currentEndPoints;
+      const { forecastDaily } = await getForecastDaily(forecastUrl!);
 
       runInAction('Get Daily Forecast', () => {
-        this.forecastDaily = [...rawPoints.properties.periods];
+        this.forecastDaily = forecastDaily;
       });
 
       this.combineCurrentWeek();

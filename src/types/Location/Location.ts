@@ -11,6 +11,6 @@ export interface LocationDetails {
 }
 
 export interface CurrentEndPoints {
-  forecast?: string;
-  forecastHourly?: string;
+  forecastUrl?: string;
+  forecastHourlyUrl?: string;
 }

@@ -11,6 +11,11 @@ export class UserStore {
   @observable
   chosenTheme: UserChosenTheme = null;
 
+  /**
+   * @param {string<UserChosenTheme>} chosenTheme
+   * @function onChangeTheme
+   * - Sets the chosen them to local storage
+   */
   @action
   onChangeTheme = (chosenTheme: UserChosenTheme) => {
     this.chosenTheme = chosenTheme;
