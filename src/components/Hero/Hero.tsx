@@ -57,7 +57,7 @@ export class Hero extends Component<HeroProps, HeroState> {
       cityImage = '',
       region,
     } = this.injected.locationStore.locationDetails;
-    const { currentWeather } = this.injected.weatherStore;
+    const { currentWeather = {} } = this.injected.weatherStore;
 
     const { shortForecast, temperature, icon } = currentWeather;
 

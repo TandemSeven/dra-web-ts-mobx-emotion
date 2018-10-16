@@ -28,7 +28,7 @@ export class LocationStore {
     try {
       const response = await getCityByZip(zipCode);
 
-      if (!response) {
+      if (!response || response.error) {
         return globalStore.setError({
           message: 'Please enter a valid zip code.',
         });

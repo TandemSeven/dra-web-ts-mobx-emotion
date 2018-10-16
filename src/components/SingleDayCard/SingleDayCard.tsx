@@ -26,7 +26,7 @@ export const SingleDayCard: SFC<SingleDayCardProps> = ({
       <Typography
         align="center"
         classes={TypographyClasses(isToday)}
-        variant="title"
+        variant="h6"
       >
         {name}
       </Typography>
