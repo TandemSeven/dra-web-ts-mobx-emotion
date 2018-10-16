@@ -80,6 +80,7 @@ export class HamburgerMenu extends Component<
             color="primary"
             disabled={appState === LOADING || !this.state.zipCode}
             onClick={this.handleSearch}
+            type="submit"
             variant="contained"
           >
             Search

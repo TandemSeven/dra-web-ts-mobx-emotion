@@ -62,7 +62,9 @@ export class LocationStore {
         this.locationDetails = response;
       });
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({
+        message: 'Cannot get your location. Please refresh the browser.',
+      });
     }
   };
 
@@ -121,7 +123,9 @@ export class LocationStore {
         }
       });
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({
+        message: 'Error fetching data. Please try again.',
+      });
     }
   };
 }

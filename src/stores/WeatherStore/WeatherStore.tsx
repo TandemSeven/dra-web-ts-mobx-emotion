@@ -85,7 +85,7 @@ export class WeatherStore {
         };
       });
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({ message: 'Cannot get weather endpoints.' });
     }
   };
 
@@ -109,7 +109,9 @@ export class WeatherStore {
         this.currentWeather = currentWeather;
       });
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({
+        message: 'Error fetching the hourly forecast. Please try again.',
+      });
     }
   };
   /**
@@ -130,7 +132,9 @@ export class WeatherStore {
 
       this.combineCurrentWeek();
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({
+        message: 'Error fetching the daily forecast. Please try again.',
+      });
     }
   };
 }
