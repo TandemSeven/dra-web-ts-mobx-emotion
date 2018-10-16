@@ -41,6 +41,7 @@
     "react-dom": "^16.5.1",
     "react-emotion": "^9.2.9",
     "react-intl": "^2.5.0",
+    "react-jss": "^8.6.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "resolve": "1.6.0",
@@ -63,12 +64,12 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "cross-env NODE_ENV=test jest --coverage --verbose"
   },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.47",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.47",
-    "@babel/polyfill": "7.0.0-beta.47",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "7.0.0-beta.47",
     "@types/enzyme": "^3.1.14",
     "@types/enzyme-adapter-react-16": "^1.0.3",
@@ -82,53 +83,21 @@
     "@types/react-router": "^4.0.31",
     "@types/react-router-dom": "^4.3.1",
     "autoprefixer": "8.6.3",
-    "babel-core": "6.26.3",
     "babel-loader": "8.0.0-beta.4",
     "babel-plugin-emotion": "9.2.4",
     "babel-preset-env": "1.7.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.3.4",
+    "jest-webpack-resolver": "^0.3.0",
     "mobx-react-devtools": "^6.0.3",
+    "nock": "^10.0.1",
     "tslint-config-prettier": "^1.15.0",
     "tslint-plugin-prettier": "^2.0.0",
     "typescript": "^3.0.3"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
-      "<rootDir>/src/**/?(*.)(spec|test).(j|t)s?(x)"
-    ],
-    "testEnvironment": "node",
-    "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"
-    ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web"
-    },
-    "moduleFileExtensions": [
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
-      "web.js",
-      "js",
-      "web.jsx",
-      "jsx",
-      "json",
-      "node",
-      "mjs"
-    ],
+    "testURL": "http://localhost/",
     "globals": {
       "ts-jest": {
         "babelConfig": {
@@ -140,9 +109,35 @@
               "env"
             ]
           ]
-        },
-        "tsConfigFile": "/Users/tandemseven/dev/dra-ts-mobx-emotion/tsconfig.test.json"
+        }
       }
-    }
+    },
+    "transform": {
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx",
+      "node"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "watchPathIgnorePatterns": [
+      "<rootDir>/jest.json"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|jpg|png|less|sss)$": "<rootDir>/empty-module.ts"
+    },
+    "resolver": "jest-webpack-resolver",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.ts"
+  },
+  "jestWebpackResolver": {
+    "webpackConfig": "./config/webpack.config.dev.js"
   }
 }

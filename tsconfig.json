@@ -18,7 +18,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "allowJs": false,
-    "baseUrl": "",
+    "baseUrl": ".",
     "lib": ["es2017", "es2018.promise", "dom"],
     "paths": {
       "*": ["types/*"],

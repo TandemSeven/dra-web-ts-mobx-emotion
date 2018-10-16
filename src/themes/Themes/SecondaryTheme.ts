@@ -19,5 +19,6 @@ export const secondaryTheme = createMuiTheme({
   },
   typography: {
     fontFamily: ['Montserrat', 'sans-serif'].join(','),
+    useNextVariants: true,
   },
 });

@@ -69,9 +69,11 @@ export const ShortForecast = styled(TypographyFlex)`
 export const Temperature = styled(TypographyFlex)`
   color: ${({ theme }) => theme.palette.primary.light};
   font-size: 10rem;
+  > * {
+    margin-top: 2rem;
+  }
   .weather-icon {
     display: flex;
-    margin-top: 2rem;
   }
   .degrees {
     font-size: 3.5rem;
