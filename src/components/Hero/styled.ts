@@ -6,7 +6,7 @@ import styled, { css } from 'react-emotion';
 import { FlexContainer, TypographyFlex } from '#common';
 
 const PaperRoot = (cityImage: string) => css`
-  min-height: 36.75rem;
+  min-height: 32.75rem;
   display: flex;
   justify-content: center;
   padding: 1.5rem 0;
