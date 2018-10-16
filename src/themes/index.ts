@@ -1,9 +1,9 @@
 import { injectGlobal } from 'react-emotion';
-import 'typeface-montserrat';
+// import 'typeface-montserrat';
 
 injectGlobal`
   * {
-    font-family: Montserrat,sans-serif;
+    /* font-family: Montserrat,sans-serif; */
     font-weight: normal;
     position: relative;
   }

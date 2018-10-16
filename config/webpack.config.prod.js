@@ -182,6 +182,7 @@ module.exports = {
                 loader: 'ts-loader',
               },
             ],
+            exclude: [/node_modules/],
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
