@@ -4,4 +4,6 @@ import styled from 'react-emotion';
 export const MainContent = styled(Grid)`
   max-width: 65rem;
   margin: auto;
+  width: 100%;
+  justify-content: center;
 `;

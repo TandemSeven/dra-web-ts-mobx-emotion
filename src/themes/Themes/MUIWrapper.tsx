@@ -4,6 +4,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import { primaryTheme, secondaryTheme, tertiaryTheme } from '#themes';
 import { UserStoreProps } from '#stores';
+import { PRIMARY } from '#constants';
 
 interface InjectedProps extends MUIWrapperProps {
   userStore: UserStoreProps;
@@ -20,7 +21,8 @@ export class MUIWrapper extends Component<MUIWrapperProps> {
   render() {
     const chosenTheme =
       this.injected.userStore.chosenTheme ||
-      localStorage.getItem('chosenTheme');
+      localStorage.getItem('chosenTheme') ||
+      PRIMARY;
 
     const map: any = {
       primaryTheme,

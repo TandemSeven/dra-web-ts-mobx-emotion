@@ -20,14 +20,17 @@ export class Home extends Component {
     return this.props as InjectedProps;
   }
   componentDidMount() {
-    this.injected.globalStore.init();
+    const { globalStore, weatherStore } = this.injected;
+    if (!weatherStore.currentWeather.number) {
+      globalStore.init();
+    }
   }
   render() {
     const { currentWeek } = this.injected.weatherStore;
     return (
       <Fragment>
         <Hero />
-        <MainContent container={true} spacing={24}>
+        <MainContent container={true} spacing={16}>
           {currentWeek.map((d: any) => (
             <Grid item={true} key={d.name} sm={true}>
               <SingleDayCard {...d} />

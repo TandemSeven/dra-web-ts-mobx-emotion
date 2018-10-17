@@ -4,6 +4,7 @@ import { ThemeProvider } from 'emotion-theming';
 
 import { primaryTheme, secondaryTheme, tertiaryTheme } from '#themes';
 import { UserStoreProps } from '#stores';
+import { PRIMARY } from '#constants';
 
 interface InjectedProps extends EmotionWrapperProps {
   userStore: UserStoreProps;
@@ -20,7 +21,8 @@ export class EmotionWrapper extends Component<EmotionWrapperProps> {
   render() {
     const chosenTheme =
       this.injected.userStore.chosenTheme ||
-      localStorage.getItem('chosenTheme');
+      localStorage.getItem('chosenTheme') ||
+      PRIMARY;
 
     const map: any = {
       primaryTheme,

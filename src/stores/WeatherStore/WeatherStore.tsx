@@ -58,6 +58,7 @@ export class WeatherStore {
         this.currentWeek.push(temp[dayOfWeek]);
       }
     });
+
     runInAction('Set current week', () => {
       this.currentWeek = this.currentWeek;
     });
@@ -85,7 +86,7 @@ export class WeatherStore {
         };
       });
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({ message: 'Cannot get weather endpoints.' });
     }
   };
 
@@ -109,7 +110,9 @@ export class WeatherStore {
         this.currentWeather = currentWeather;
       });
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({
+        message: 'Error fetching the hourly forecast. Please try again.',
+      });
     }
   };
   /**
@@ -130,7 +133,9 @@ export class WeatherStore {
 
       this.combineCurrentWeek();
     } catch (err) {
-      globalStore.setError({ message: `Err: ${err}` });
+      globalStore.setError({
+        message: 'Error fetching the daily forecast. Please try again.',
+      });
     }
   };
 }
