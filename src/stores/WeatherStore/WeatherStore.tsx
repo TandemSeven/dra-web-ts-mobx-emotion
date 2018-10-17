@@ -58,6 +58,7 @@ export class WeatherStore {
         this.currentWeek.push(temp[dayOfWeek]);
       }
     });
+
     runInAction('Set current week', () => {
       this.currentWeek = this.currentWeek;
     });

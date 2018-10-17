@@ -22,10 +22,19 @@ const PaperRoot = (cityImage: string) => css`
     right: 0;
     background: rgba(1, 1, 1, 0.3);
   }
+  @media (max-width: 767px) {
+    min-height: 24.75rem;
+  }
+  @media (max-width: 767px) {
+    min-height: 24.75rem;
+  }
 `;
 
 const TypographyRoot = css`
   font-size: 2rem;
+  @media (max-width: 767px) {
+    font-size: 1.25rem;
+  }
 `;
 
 export const PaperClasses: (
@@ -48,6 +57,11 @@ export const ContentWrapper = styled.div`
   flex: auto;
   padding: 4rem 6rem;
   max-height: inherit;
+  @media (max-width: 767px) {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 2rem;
+  }
 `;
 
 export const SVGCurve = styled.svg`
@@ -89,6 +103,10 @@ export const Region = styled(TypographyFlex)`
 export const RightContent = styled(FlexContainer)`
   justify-content: flex-end;
   flex: auto;
+  @media (max-width: 767px) {
+    min-width: 20.625rem;
+    justify-content: flex-start;
+  }
 `;
 
 export const LeftContent = styled(FlexContainer)`

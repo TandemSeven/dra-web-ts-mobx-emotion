@@ -30,7 +30,7 @@ export class Home extends Component {
     return (
       <Fragment>
         <Hero />
-        <MainContent container={true} spacing={24}>
+        <MainContent container={true} spacing={16}>
           {currentWeek.map((d: any) => (
             <Grid item={true} key={d.name} sm={true}>
               <SingleDayCard {...d} />
