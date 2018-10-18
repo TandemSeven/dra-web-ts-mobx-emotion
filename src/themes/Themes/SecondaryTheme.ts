@@ -4,14 +4,15 @@ import { colors } from '../Colors';
 export const secondaryTheme = createMuiTheme({
   palette: {
     primary: {
-      dark: colors.orange['600'],
+      dark: colors.pink['400'],
       main: colors.orange['400'],
-      light: colors.orange['300'],
+      light: colors.orange['400'],
     },
     secondary: {
-      dark: colors.green['400'],
-      main: colors.green['400'],
+      dark: colors.pink['400'],
+      main: colors.pink['400'],
       light: colors.green['400'],
+      contrastText: colors.white['400'],
     },
     error: {
       main: colors.red['400'],

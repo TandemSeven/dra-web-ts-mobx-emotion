@@ -1,11 +1,11 @@
 /* tslint:disable:max-line-length */
 import React from 'react';
-export const MostlySunny = () => (
+export const Cloudy1 = () => (
   <svg
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 481.306 481.306"
-    height="5rem"
+    height="3.75rem"
   >
     <circle cx="338.24" cy="231.733" r="131.08" fill="#fcb641" />
     <g fill="#4d4d4d">

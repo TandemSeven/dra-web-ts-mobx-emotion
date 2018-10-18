@@ -5,7 +5,7 @@ export const Rain = () => (
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 480 480"
-    height="5rem"
+    height="3.75rem"
   >
     <g fill="#4d4d4d">
       <path d="M8,328c-4.416,0-8-3.576-8-8v-24c0-4.424,3.584-8,8-8s8,3.576,8,8v24C16,324.424,12.416,328,8,328z" />

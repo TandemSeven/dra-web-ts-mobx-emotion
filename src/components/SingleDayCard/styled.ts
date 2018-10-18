@@ -6,7 +6,7 @@ const CardRoot = css`
   background: transparent;
 `;
 
-const TypographyTitle = (isToday: boolean) => css`
+const TypographyH6 = (isToday: boolean) => css`
   font-weight: ${isToday ? 600 : 400};
 `;
 
@@ -17,7 +17,7 @@ export const CardClasses: { [K in CardClassKey]?: string } = {
 export const TypographyClasses: (
   isToday: boolean,
 ) => { [K in TypographyClassKey]?: string } = isToday => ({
-  title: TypographyTitle(isToday),
+  h6: TypographyH6(isToday),
 });
 
 export const WeatherCard = styled(Card)`
@@ -30,9 +30,11 @@ export const WeatherCard = styled(Card)`
 
 export const Temps = styled.div`
   text-align: center;
+  > span:first-of-type {
+    font-weight: 600;
+  }
 `;
 
 export const TempSecondary = styled.span`
-  font-weight: 600;
   margin-left: 0.3125rem;
 `;

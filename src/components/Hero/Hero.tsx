@@ -7,6 +7,7 @@ import { FlexContainer, TypographyFlex } from '#common';
 import { LocationStoreProps, WeatherStoreProps } from '#stores';
 import {
   ContentWrapper,
+  DateTime,
   HeroContainer,
   LeftContent,
   PaperClasses,
@@ -19,6 +20,7 @@ import {
 } from './styled';
 
 import { forecastIconMap } from '#helpers';
+import { css } from 'emotion';
 
 interface InjectedProps extends HeroProps {
   locationStore: LocationStoreProps;
@@ -69,7 +71,13 @@ export class Hero extends Component<HeroProps, HeroState> {
       >
         <ContentWrapper>
           <LeftContent>
-            <FlexContainer>
+            <FlexContainer
+              className={css`
+                @media (max-width: 768px) {
+                  justify-items: center;
+                }
+              `}
+            >
               {city && (
                 <TypographyFlex classes={TypographyClasses}>
                   {`${city},`}
@@ -77,12 +85,24 @@ export class Hero extends Component<HeroProps, HeroState> {
               )}
               <Region classes={TypographyClasses}>{region}</Region>
             </FlexContainer>
-            <FlexContainer>
+            <FlexContainer
+              className={css`
+                @media (max-width: 768px) {
+                  justify-content: center;
+                }
+              `}
+            >
               <ShortForecast classes={TypographyClasses}>
                 {shortForecast}
               </ShortForecast>
             </FlexContainer>
-            <FlexContainer>
+            <FlexContainer
+              className={css`
+                @media (max-width: 768px) {
+                  justify-content: center;
+                }
+              `}
+            >
               {temperature && (
                 <Temperature classes={TypographyClasses}>
                   <sup className="weather-icon">
@@ -95,9 +115,7 @@ export class Hero extends Component<HeroProps, HeroState> {
             </FlexContainer>
           </LeftContent>
           <RightContent>
-            <TypographyFlex classes={TypographyClasses}>
-              {this.state.currentTime}
-            </TypographyFlex>
+            <DateTime>{this.state.currentTime}</DateTime>
           </RightContent>
         </ContentWrapper>
         <SVGCurve viewBox="0 0 100 17">

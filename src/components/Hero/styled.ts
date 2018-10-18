@@ -6,10 +6,9 @@ import styled, { css } from 'react-emotion';
 import { FlexContainer, TypographyFlex } from '#common';
 
 const PaperRoot = (cityImage: string) => css`
-  min-height: 32.75rem;
+  min-height: 61vh;
   display: flex;
   justify-content: center;
-  padding: 1.5rem 0;
   background: ${`url(${cityImage})`};
   background-size: cover;
   background-position: center;
@@ -22,19 +21,10 @@ const PaperRoot = (cityImage: string) => css`
     right: 0;
     background: rgba(1, 1, 1, 0.3);
   }
-  @media (max-width: 767px) {
-    min-height: 24.75rem;
-  }
-  @media (max-width: 767px) {
-    min-height: 24.75rem;
-  }
 `;
 
 const TypographyRoot = css`
-  font-size: 2rem;
-  @media (max-width: 767px) {
-    font-size: 1.25rem;
-  }
+  font-size: 3rem;
 `;
 
 export const PaperClasses: (
@@ -72,25 +62,29 @@ export const SVGCurve = styled.svg`
     fill: ${({ theme }) => theme.palette.primary.main};
   }
   > path:nth-child(2) {
-    fill: ${({ theme }) => theme.palette.primary.light};
+    fill: ${({ theme }) => theme.palette.secondary.main};
   }
 `;
 
 export const ShortForecast = styled(TypographyFlex)`
-  font-size: 1.25rem;
-  margin: 1.25rem 0 0;
+  font-size: 1.5rem;
+  margin-top: 1rem;
 `;
+export const DateTime = styled(ShortForecast)``;
+
 export const Temperature = styled(TypographyFlex)`
   color: ${({ theme }) => theme.palette.primary.light};
-  font-size: 10rem;
+  font-size: 7.5rem;
+  font-weight: 400;
   > * {
-    margin-top: 2rem;
+    margin-top: 3rem;
   }
   .weather-icon {
+    margin-top: 1rem;
     display: flex;
   }
   .degrees {
-    font-size: 3.5rem;
+    font-size: 2.25rem;
     font-weight: 200;
   }
 `;
@@ -103,10 +97,6 @@ export const Region = styled(TypographyFlex)`
 export const RightContent = styled(FlexContainer)`
   justify-content: flex-end;
   flex: auto;
-  @media (max-width: 767px) {
-    min-width: 20.625rem;
-    justify-content: flex-start;
-  }
 `;
 
 export const LeftContent = styled(FlexContainer)`

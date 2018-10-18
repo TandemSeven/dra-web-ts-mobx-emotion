@@ -4,13 +4,13 @@ import { colors } from '../Colors';
 export const tertiaryTheme = createMuiTheme({
   palette: {
     primary: {
-      dark: colors.blue['600'],
-      main: colors.green['400'],
-      light: colors.red['200'],
+      dark: colors.green['600'],
+      main: colors.green['200'],
+      light: colors.green['200'],
     },
     secondary: {
-      dark: colors.orange['300'],
-      main: colors.pink['400'],
+      dark: colors.red['700'],
+      main: colors.red['800'],
       light: colors.grey['400'],
     },
     error: {

@@ -1,20 +1,35 @@
 import { action, observable, runInAction } from 'mobx';
 import { LocationDetails } from '#types';
 import { injectables } from '#router';
-import { ERROR } from '#constants';
+import { ERROR, HERO_FALLBACK } from '#constants';
 import { getCityImage, getLocation, getCityByZip } from '#helpers';
 
 export interface LocationStoreProps {
+  clearRecentZipCodes(): void;
   getByZipCode(zipCode: string): void;
   getCurrentCityImage(): void;
   getCurrentLocation(): void;
   locationDetails: LocationDetails;
+  recentZipCodes: string[];
   updateCityByZip(zipCode: string): void;
 }
+
+const retrievedZipCodes = () => {
+  const zipCodes = localStorage.getItem('recentZipCodes');
+  return zipCodes ? JSON.parse(zipCodes) : [];
+};
 
 export class LocationStore {
   @observable
   locationDetails: LocationDetails = {};
+  @observable
+  recentZipCodes: any = retrievedZipCodes();
+
+  @action
+  clearRecentZipCodes = () => {
+    localStorage.removeItem('recentZipCodes');
+    this.recentZipCodes = [];
+  };
 
   /**
    * @async
@@ -35,14 +50,22 @@ export class LocationStore {
       }
 
       runInAction('Get by zip code', () => {
+        if (!this.recentZipCodes.includes(zipCode)) {
+          this.recentZipCodes.push(zipCode);
+          localStorage.setItem(
+            'recentZipCodes',
+            JSON.stringify(this.recentZipCodes),
+          );
+        }
         this.locationDetails = response;
       });
 
       globalStore.toggleHamburgerMenu();
       routerStore.push('/');
     } catch (err) {
+      console.log(err);
       return globalStore.setError({
-        message: 'Please enter a valid zip code.',
+        message: 'Error, please try again.',
       });
     }
   };
@@ -81,14 +104,8 @@ export class LocationStore {
     try {
       const { cityImage } = await getCityImage(lat!, lon!);
 
-      if (!cityImage) {
-        return globalStore.setError({
-          message: 'Cannot get the closest city.',
-        });
-      }
-
       runInAction('Get city image', () => {
-        this.locationDetails.cityImage = cityImage;
+        this.locationDetails.cityImage = cityImage || HERO_FALLBACK;
       });
     } catch (err) {
       return globalStore.setError({
@@ -108,6 +125,7 @@ export class LocationStore {
   @action
   updateCityByZip = async (zipCode: string) => {
     const { globalStore, weatherStore } = injectables;
+
     globalStore.setLoading({
       message: 'Loading Current Weather...',
     });
