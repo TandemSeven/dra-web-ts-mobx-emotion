@@ -1,6 +1,7 @@
 import styled, { css } from 'react-emotion';
 import { DrawerClassKey } from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
+import { TypographyFlex } from '#common';
 
 const PaperAnchorRightClass = css`
   width: 25rem;
@@ -12,11 +13,23 @@ export const DrawerClasses: { [K in DrawerClassKey]?: string } = {
   paperAnchorRight: PaperAnchorRightClass,
 };
 
+export const Title = styled(TypographyFlex)`
+  color: ${({ theme }) => theme.palette.primary.main};
+  font-size: 3rem;
+`;
+
+export const FormWrapper = styled.div`
+  width: 100%;
+  flex: auto;
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 1.25rem;
   height: inherit;
+  align-items: center;
+  padding: 0 1.5rem;
   h1 {
     margin-bottom: 1.25rem;
   }
@@ -24,10 +37,12 @@ export const Form = styled.form`
 
 export const MenuIconButton = styled(IconButton)`
   color: white;
-  align-self: self-end;
   margin-top: -3rem;
   position: absolute;
   z-index: 1;
-  right: 3rem;
+  right: 5rem;
   top: 4rem;
+  @media (max-width: 768px) {
+    right: 0;
+  }
 `;

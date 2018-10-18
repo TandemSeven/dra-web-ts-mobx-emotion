@@ -1,7 +1,7 @@
 import React, { Component, ChangeEvent, SyntheticEvent } from 'react';
+import { NavLink } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { RouterStore } from 'mobx-react-router';
-import { NavLink } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
@@ -9,11 +9,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Close from '@material-ui/icons/Close';
+import { css } from 'emotion';
 
-import { Button, H1 } from '#components';
-import { DrawerClasses, Form } from './styled';
+import { Button, RecentZipCodes } from '#components';
 import { GlobalStoreProps, LocationStoreProps } from '#stores';
 import { LOADING } from '#constants';
+import { FlexContainer } from '#common';
+
+import { DrawerClasses, Form, FormWrapper, Title } from './styled';
 
 export interface HamburgerMenuProps {
   isOpen: boolean;
@@ -51,6 +55,11 @@ export class HamburgerMenu extends Component<
     e.preventDefault();
     updateCityByZip(this.state.zipCode);
   };
+  handleCurrentLocation = (e: SyntheticEvent) => {
+    const { init } = this.injected.globalStore;
+    e.preventDefault();
+    init();
+  };
   render() {
     const {
       isHamburgerOpen,
@@ -65,27 +74,62 @@ export class HamburgerMenu extends Component<
         open={isHamburgerOpen}
         onClose={toggleHamburgerMenu}
       >
-        <Form>
-          <H1>WeatherVane</H1>
-          <TextField
-            label="Search by Zipcode"
-            margin="normal"
-            onChange={this.handleChange('zipCode')}
-            placeholder="Search by Zipcode"
-            type="number"
-            value={this.state.zipCode}
-            variant="outlined"
-          />
+        <FormWrapper>
           <Button
-            color="primary"
-            disabled={appState === LOADING || !this.state.zipCode}
-            onClick={this.handleSearch}
-            type="submit"
-            variant="contained"
+            color="secondary"
+            className={css`
+              margin: 0.625rem 0.3125rem 0;
+            `}
+            onClick={toggleHamburgerMenu}
+            mini={true}
+            variant="fab"
           >
-            Search
+            <Close />
           </Button>
-        </Form>
+          <Form>
+            <Title variant="h1">WeatherVane</Title>
+            <TextField
+              disabled={appState === LOADING}
+              fullWidth={true}
+              label="Search by Zipcode"
+              margin="normal"
+              onChange={this.handleChange('zipCode')}
+              placeholder="Search by Zipcode"
+              type="number"
+              value={this.state.zipCode}
+              variant="outlined"
+            />
+            <FlexContainer
+              className={css`
+                width: 100%;
+                justify-content: space-between;
+                > button:nth-of-type(1) {
+                  margin-right: 0.3125rem;
+                }
+              `}
+            >
+              <Button
+                color="primary"
+                disabled={appState === LOADING || !this.state.zipCode}
+                onClick={this.handleSearch}
+                type="submit"
+                variant="extendedFab"
+              >
+                Search
+              </Button>
+              <Button
+                color="secondary"
+                disabled={appState === LOADING}
+                onClick={this.handleCurrentLocation}
+                type="submit"
+                variant="extendedFab"
+              >
+                Current Location
+              </Button>
+            </FlexContainer>
+          </Form>
+          <RecentZipCodes />
+        </FormWrapper>
         <List>
           <NavLink to={currentRoute === '/settings' ? '/' : '/settings'}>
             <ListItem button={true} onClick={toggleHamburgerMenu}>

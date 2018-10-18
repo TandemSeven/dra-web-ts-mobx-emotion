@@ -4,6 +4,10 @@ export const ERROR = 'error';
 export const LOADING = 'loading';
 export const PENDING = 'pending';
 
+// fallbacks
+export const HERO_FALLBACK =
+  'https://amp.businessinsider.com/images/55e47515dd0895f7118b464c-2732-1366.jpg';
+
 // weather API
 export const API_POINTS = 'https://api.weather.gov/points';
 

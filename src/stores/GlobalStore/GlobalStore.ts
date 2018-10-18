@@ -85,6 +85,12 @@ export class GlobalStore {
   @action
   init = async () => {
     this.setLoading({ message: 'Loading Current Weather...' });
+    runInAction('test', () => {
+      if (this.isHamburgerOpen) {
+        this.toggleHamburgerMenu();
+      }
+      injectables.locationStore.locationDetails = {};
+    });
     try {
       await injectables.locationStore.getCurrentLocation();
       await injectables.locationStore.getCurrentCityImage();

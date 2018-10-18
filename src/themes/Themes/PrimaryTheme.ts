@@ -5,13 +5,15 @@ export const primaryTheme = createMuiTheme({
   palette: {
     primary: {
       dark: colors.red['400'],
-      main: colors.blue['400'],
+      main: colors.blue['300'],
       light: colors.white['400'],
+      contrastText: colors.white['400'],
     },
     secondary: {
-      dark: colors.red['300'],
-      main: colors.red['400'],
-      light: colors.red['600'],
+      dark: colors.white['400'],
+      main: colors.white['400'],
+      light: colors.white['400'],
+      contrastText: colors.blue['400'],
     },
     error: {
       main: colors.red['400'],

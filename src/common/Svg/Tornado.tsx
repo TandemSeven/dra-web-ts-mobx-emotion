@@ -5,7 +5,7 @@ export const Tornado = () => (
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 480 480"
-    height="5rem"
+    height="3.75rem"
   >
     <g fill="#4d4d4d">
       <path d="M432,185.897H48c-4.416,0-8-3.576-8-8s3.584-8,8-8h384c4.424,0,8,3.576,8,8 S436.424,185.897,432,185.897z" />

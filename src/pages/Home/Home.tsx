@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { Hero, SingleDayCard } from '#components';
 import { GlobalStoreProps, WeatherStoreProps } from '#stores';
-import { MainContent } from './styled';
+import { MainContent, MainContentWrapper } from './styled';
 
 export interface HomeProps {}
 
@@ -15,7 +15,7 @@ interface InjectedProps extends HomeProps {
 
 @inject('globalStore', 'weatherStore')
 @observer
-export class Home extends Component {
+export class Home extends Component<HomeProps> {
   get injected(): InjectedProps {
     return this.props as InjectedProps;
   }
@@ -31,11 +31,13 @@ export class Home extends Component {
       <Fragment>
         <Hero />
         <MainContent container={true} spacing={16}>
-          {currentWeek.map((d: any) => (
-            <Grid item={true} key={d.name} sm={true}>
-              <SingleDayCard {...d} />
-            </Grid>
-          ))}
+          <MainContentWrapper container={true} spacing={16}>
+            {currentWeek.map((d: any) => (
+              <Grid item={true} key={d.name} sm={true}>
+                <SingleDayCard {...d} />
+              </Grid>
+            ))}
+          </MainContentWrapper>
         </MainContent>
       </Fragment>
     );

@@ -1,11 +1,11 @@
 /* tslint:disable:max-line-length */
 import React from 'react';
-export const Cold = () => (
+export const Snowflake = () => (
   <svg
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 480 480"
-    height="5rem"
+    height="3.75rem"
   >
     <polygon
       points="247.1,129 268.6,189.7 326.8,162 299.1,220.2 359.8,241.8 299.1,263.3 326.8,321.5 268.6,293.8 247.1,354.5 225.5,293.8 167.3,321.5 195,263.3 134.3,241.8 195,220.2 167.3,162 225.5,189.7"

@@ -9,6 +9,9 @@ injectGlobal`
   }
   body {
     margin: 0;
+    main {
+      height: 100vh;
+    }
     a {
       text-decoration: none;
     }
