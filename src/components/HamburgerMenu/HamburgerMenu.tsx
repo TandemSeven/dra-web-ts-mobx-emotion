@@ -76,13 +76,12 @@ export class HamburgerMenu extends Component<
       >
         <FormWrapper>
           <Button
-            color="secondary"
             className={css`
               margin: 0.625rem 0.3125rem 0;
             `}
-            onClick={toggleHamburgerMenu}
             mini={true}
-            variant="fab"
+            onClick={toggleHamburgerMenu}
+            variant="text"
           >
             <Close />
           </Button>
