@@ -16,6 +16,7 @@ export const DrawerClasses: { [K in DrawerClassKey]?: string } = {
 export const Title = styled(TypographyFlex)`
   color: ${({ theme }) => theme.palette.primary.main};
   font-size: 3rem;
+  font-weight: 600;
 `;
 
 export const FormWrapper = styled.div`

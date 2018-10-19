@@ -6,4 +6,5 @@ export const RecentZipsTitle = styled(Typography)`
   text-align: center;
   margin: 3.25rem 0 0;
   text-decoration: underline;
+  font-weight: 200;
 `;

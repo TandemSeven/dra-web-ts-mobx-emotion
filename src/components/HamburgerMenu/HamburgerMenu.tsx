@@ -86,7 +86,7 @@ export class HamburgerMenu extends Component<
             <Close />
           </Button>
           <Form>
-            <Title variant="h1">WeatherVane</Title>
+            <Title variant="h1">Weather Vane</Title>
             <TextField
               disabled={appState === LOADING}
               fullWidth={true}
