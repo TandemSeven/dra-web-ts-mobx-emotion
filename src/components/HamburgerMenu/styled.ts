@@ -38,12 +38,11 @@ export const Form = styled.form`
 
 export const MenuIconButton = styled(IconButton)`
   color: white;
-  margin-top: -3rem;
   position: absolute;
   z-index: 1;
   right: 5rem;
-  top: 4rem;
+  top: 2rem;
   @media (max-width: 768px) {
-    right: 0;
+    right: 1rem;
   }
 `;

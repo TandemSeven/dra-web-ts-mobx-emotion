@@ -6,7 +6,7 @@ import styled, { css } from 'react-emotion';
 import { FlexContainer, TypographyFlex } from '#common';
 
 const PaperRoot = (cityImage: string) => css`
-  min-height: 61vh;
+  min-height: 70vh;
   display: flex;
   justify-content: center;
   background: ${`url(${cityImage})`};
@@ -19,7 +19,7 @@ const PaperRoot = (cityImage: string) => css`
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(1, 1, 1, 0.3);
+    background: rgba(1, 1, 1, 0.5);
   }
 `;
 
@@ -45,7 +45,7 @@ export const HeroContainer = styled(Paper)`
 export const ContentWrapper = styled.div`
   display: flex;
   flex: auto;
-  padding: 4rem 6rem;
+  padding: 6rem;
   max-height: inherit;
   @media (max-width: 767px) {
     flex-direction: column-reverse;
@@ -68,9 +68,11 @@ export const SVGCurve = styled.svg`
 
 export const ShortForecast = styled(TypographyFlex)`
   font-size: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 0;
 `;
-export const DateTime = styled(ShortForecast)``;
+export const DateTime = styled(ShortForecast)`
+  margin-top: 0.625rem;
+`;
 
 export const Temperature = styled(TypographyFlex)`
   color: ${({ theme }) => theme.palette.primary.light};
@@ -97,6 +99,9 @@ export const Region = styled(TypographyFlex)`
 export const RightContent = styled(FlexContainer)`
   justify-content: flex-end;
   flex: auto;
+  @media (max-width: 767px) {
+    flex: initial;
+  }
 `;
 
 export const LeftContent = styled(FlexContainer)`

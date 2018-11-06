@@ -8,6 +8,7 @@ const CardRoot = css`
 
 const TypographyH6 = (isToday: boolean) => css`
   font-weight: ${isToday ? 600 : 400};
+  font-size: 1.5rem;
 `;
 
 export const CardClasses: { [K in CardClassKey]?: string } = {
