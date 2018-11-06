@@ -16,7 +16,7 @@ export class Root extends Component {
     return (
       <main>
         {this.props.children}
-        {this.renderDevTool()}
+        {/* {this.renderDevTool()} */}
       </main>
     );
   }

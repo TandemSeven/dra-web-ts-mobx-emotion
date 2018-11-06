@@ -6,6 +6,7 @@ injectGlobal`
     font-family: Montserrat,sans-serif;
     font-weight: normal;
     position: relative;
+    -webkit-font-smoothing: antialiased;
   }
   body {
     margin: 0;

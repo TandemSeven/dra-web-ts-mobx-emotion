@@ -45,7 +45,7 @@ export class App extends Component<AppProps> {
               aria-label="Open drawer"
               onClick={toggleHamburgerMenu}
             >
-              <MenuIcon fontSize="large" />
+              <MenuIcon />
             </MenuIconButton>
             <Routes />
             <HamburgerMenu isOpen={isHamburgerOpen} />
