@@ -64,7 +64,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "cross-env NODE_ENV=test jest --coverage --verbose"
+    "test": "cross-env NODE_ENV=test jest --coverage --verbose",
+    "deploy": "serverless client deploy --no-confirm"
   },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.47",
@@ -92,6 +93,8 @@
     "jest-webpack-resolver": "^0.3.0",
     "mobx-react-devtools": "^6.0.3",
     "nock": "^10.0.1",
+    "serverless": "^1.33.2",
+    "serverless-finch": "^2.3.2",
     "tslint-config-prettier": "^1.15.0",
     "tslint-plugin-prettier": "^2.0.0",
     "typescript": "^3.0.3"
