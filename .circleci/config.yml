@@ -38,6 +38,9 @@ jobs:
       # run tests!
       - run: yarn test
 
+      # make a build
+      - run: yarn run build
+
       # Deploy
       - run:
           name: Run Serverless deployment to S3 Bucket
