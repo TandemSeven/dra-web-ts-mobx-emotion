@@ -41,4 +41,4 @@ jobs:
       # Deploy
       - run:
           name: Run Serverless deployment to S3 Bucket
-          command: yarn run deploy
+          command: npm run deploy
