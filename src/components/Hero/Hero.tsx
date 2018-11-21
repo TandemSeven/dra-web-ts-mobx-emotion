@@ -19,7 +19,7 @@ import {
   TypographyClasses,
 } from './styled';
 
-import { forecastIconMap } from '#helpers/forecastIconMap';
+// import { forecastIconMap } from '#helpers/forecastIconMap';
 import { css } from 'emotion';
 
 interface InjectedProps extends HeroProps {
@@ -106,7 +106,7 @@ export class Hero extends Component<HeroProps, HeroState> {
               {temperature && (
                 <Temperature classes={TypographyClasses}>
                   <sup className="weather-icon">
-                    {forecastIconMap(icon || '')}
+                    {/* {forecastIconMap(icon || '')} */}
                   </sup>
                   {temperature}
                   <sup className="degrees">&#8457;</sup>
