@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
 import { WeatherWeekDay } from '#types';
-import { forecastIconMap } from '#helpers';
+import { forecastIconMap } from '#helpers/forecastIconMap';
 import {
   CardClasses,
   Temps,

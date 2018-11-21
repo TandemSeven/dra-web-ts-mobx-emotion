@@ -19,7 +19,7 @@ import {
   TypographyClasses,
 } from './styled';
 
-import { forecastIconMap } from '#helpers';
+import { forecastIconMap } from '#helpers/forecastIconMap';
 import { css } from 'emotion';
 
 interface InjectedProps extends HeroProps {

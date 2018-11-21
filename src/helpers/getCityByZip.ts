@@ -1,5 +1,4 @@
 import { API_ZIP } from '#constants';
-import { LocationDetails } from '#types';
 
 export const getCityByZip = async (zipCode?: string) => {
   try {
