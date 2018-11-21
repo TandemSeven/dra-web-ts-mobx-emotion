@@ -15,7 +15,7 @@ import {
   Tornado,
 } from '#common';
 
-export const forecastIconMap = (iconString: string) => {
+export const ForecastIconMap = (iconString: string) => {
   const iconRegex = /^https:\/\/api.weather.gov\/icons\/land\/(day|night)\/(.*?)(,|\/|\?)/;
   const icon = iconRegex.exec(iconString)![2];
 

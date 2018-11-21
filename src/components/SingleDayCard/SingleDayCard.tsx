@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
 import { WeatherWeekDay } from '#types';
-import { forecastIconMap } from '#helpers';
+import { ForecastIconMap } from '#helpers';
 import {
   CardClasses,
   Temps,
@@ -30,7 +30,7 @@ export const SingleDayCard: SFC<SingleDayCardProps> = ({
       >
         {name}
       </Typography>
-      {forecastIconMap(day.icon || '')}
+      {ForecastIconMap(day.icon || '')}
       <Temps>
         <span>
           {day.temperature}
