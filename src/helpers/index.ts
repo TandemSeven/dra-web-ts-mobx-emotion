@@ -1,3 +1,4 @@
+export * from './forecastIconMap';
 export * from './getCityByZip';
 export * from './getCityImage';
 export * from './getForecastDaily';
