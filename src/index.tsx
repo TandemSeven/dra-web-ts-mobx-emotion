@@ -15,14 +15,17 @@ import { EmotionWrapper, MUIWrapper } from '#themes';
 // START: material-ui CSS-in-JSS specificty imports
 import JssProvider from 'react-jss/lib/JssProvider';
 const generateClassName = createGenerateClassName();
-const jss = create(jssPreset());
+const jss = create({
+  ...jssPreset(),
+  insertionPoint: document.getElementById('material-ui-insertion-point') as any,
+});
 
 // We define a custom insertion point that JSS will look for injecting the styles in the DOM.
 // the goal is to have the material-ui styles appear first in the <head> so that other CSS-in-JS
 // libraries (styled-components, etc) which append to the end of <head> will always be last, which
 // means they will take precedence when the specificity of a given CSS class is the same, which is
 // desirable to avoid specificity hacks or !important
-(jss as any).options.insertionPoint = 'material-ui-insertion-point'; // tslint:disable-line:no-any
+// (jss as any).options.insertionPoint = 'material-ui-insertion-point'; // tslint:disable-line:no-any
 // END: material-ui CSS-in-JSS specificty imports
 
 // JssProvider is controlling material-ui jss <head> insertion point to get lowest precedence possible
